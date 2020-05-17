@@ -1,0 +1,19 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Racing Thoughts", "Racing Thoughts.csproj", "{D00CF3A8-B556-46FC-AAE8-7FCD13A2E566}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	Release|Any CPU = Release|Any CPU
+	Tools|Any CPU = Tools|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D00CF3A8-B556-46FC-AAE8-7FCD13A2E566}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D00CF3A8-B556-46FC-AAE8-7FCD13A2E566}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D00CF3A8-B556-46FC-AAE8-7FCD13A2E566}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D00CF3A8-B556-46FC-AAE8-7FCD13A2E566}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D00CF3A8-B556-46FC-AAE8-7FCD13A2E566}.Tools|Any CPU.ActiveCfg = Tools|Any CPU
+		{D00CF3A8-B556-46FC-AAE8-7FCD13A2E566}.Tools|Any CPU.Build.0 = Tools|Any CPU
+	EndGlobalSection
+EndGlobal
