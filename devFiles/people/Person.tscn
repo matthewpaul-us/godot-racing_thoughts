@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://people/person.png" type="Texture" id=1]
 [ext_resource path="res://thought/Thought.tscn" type="PackedScene" id=2]
 [ext_resource path="res://people/Person.cs" type="Script" id=3]
+[ext_resource path="res://icon.png" type="Texture" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 19.7704
@@ -19,3 +20,8 @@ shape = SubResource( 1 )
 
 [node name="Thought" parent="." instance=ExtResource( 2 )]
 position = Vector2( -8.82352, -66.1763 )
+
+[node name="FocusIcon" type="Sprite" parent="."]
+visible = false
+position = Vector2( -0.723541, 2.52884 )
+texture = ExtResource( 4 )

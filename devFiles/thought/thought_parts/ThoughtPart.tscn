@@ -1,11 +1,19 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://thought/thought_parts/dog_emoji.png" type="Texture" id=1]
+[ext_resource path="res://thought/thought_parts/ThoughtPart.cs" type="Script" id=2]
 
 [node name="ThoughtPart" type="Node2D"]
 scale = Vector2( 0.0765261, 0.0765261 )
+script = ExtResource( 2 )
+ThoughtPartDictionary = {
+"bird": "res://thought/thought_parts/bird-emoji.png",
+"cat": "res://thought/thought_parts/cat_emoji.png",
+"dog": "res://thought/thought_parts/dog_emoji.png",
+"fish": "res://thought/thought_parts/fish_emoji.png"
+}
 
-[node name="dog_emoji" type="TextureButton" parent="."]
+[node name="TextureButton" type="TextureButton" parent="."]
 margin_left = -239.809
 margin_top = -250.467
 margin_right = 240.191
