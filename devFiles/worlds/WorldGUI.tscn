@@ -1,0 +1,70 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://GeosansLight.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://worlds/time_progress_over.png" type="Texture" id=2]
+[ext_resource path="res://worlds/WorldGUI.cs" type="Script" id=3]
+[ext_resource path="res://worlds/time_progress_fill.png" type="Texture" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 26
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 95.0858, 75.6821 )
+
+[node name="WorldGUI" type="CanvasLayer"]
+script = ExtResource( 3 )
+
+[node name="TimeLeftControl" type="Control" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -82.0
+margin_top = 59.0
+margin_right = 43.0
+margin_bottom = 184.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ProgressBar" type="TextureProgress" parent="TimeLeftControl"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -62.5
+margin_right = 62.5
+margin_bottom = 125.0
+rect_min_size = Vector2( 125, 125 )
+mouse_filter = 2
+step = 0.01
+value = 100.0
+texture_over = ExtResource( 2 )
+texture_progress = ExtResource( 4 )
+fill_mode = 4
+radial_initial_angle = 211.9
+radial_fill_degrees = 300.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TimeLeftLabel" type="Label" parent="TimeLeftControl"]
+margin_left = 19.2037
+margin_top = 45.1722
+margin_right = 104.204
+margin_bottom = 79.1722
+custom_fonts/font = SubResource( 1 )
+text = "77.77"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Area2D" type="Area2D" parent="TimeLeftControl"]
+position = Vector2( 61.9475, 61.9475 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TimeLeftControl/Area2D"]
+shape = SubResource( 2 )

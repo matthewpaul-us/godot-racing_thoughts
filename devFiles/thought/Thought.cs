@@ -5,6 +5,15 @@ using System.Linq;
 
 public class Thought : Node2D
 {
+	private bool _isFrozen;
+
+	public bool IsFrozen
+	{
+		get { return _isFrozen; }
+		set { SetFreeze(value); }
+	}
+
+	public bool MyProperty { get; set; }
 	public List<ThoughtPart> parts;
 
 	private Timer _timer;
@@ -40,6 +49,7 @@ public class Thought : Node2D
 			_timer.Paused = false;
 		}
 
+		_isFrozen = isFrozen;
 	}
 
 	public void SetThoughtVisible(bool isVisible, float durationSeconds)
@@ -49,9 +59,12 @@ public class Thought : Node2D
 			_timer.WaitTime = durationSeconds;
 			_timer.Start();
 
-			foreach(var part in parts)
+			if(!IsFrozen)
 			{
-				part.Randomize();
+				foreach(var part in parts)
+				{
+					part.Randomize();
+				}
 			}
 
 			Show();

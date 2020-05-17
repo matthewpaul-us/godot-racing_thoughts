@@ -10,11 +10,23 @@ public class World : Node2D
 
 	private Person focusPerson;
 	private List<Person> people;
+	private Camera2D _camera;
+	private PersonSpawner _spawner;
+	private WorldGUI _gui;
+
 	public override void _Ready()
 	{
+		_camera = GetNode<Camera2D>("Camera");
+		_spawner = GetNode<PersonSpawner>("PersonSpawner");
+		_gui = GetNode<WorldGUI>("WorldGUI");
+
+		_spawner.SpawnArea = GetNode<TextureRect>("SpawnerRect");
+
 		var seed = "Fair Time Grows";
 
 		_rand = RandomSingleton.GetInstance(seed);
+
+		_spawner.Spawn();
 
 		people = GetChildren()
 			.Cast<Node>()
@@ -49,6 +61,8 @@ public class World : Node2D
 		}
 
 		GD.Print($"Transition to {person.Name}");
+
+		SetFocusPerson(person);
 	}
 
 	public void OnTimerTimeout()
@@ -59,17 +73,18 @@ public class World : Node2D
 		{
 			SetFocusPerson(randomPerson);
 			randomPerson.ShowThought();
-		}
 
-		if (randomPerson != focusPerson)
-		{
-			randomPerson.ShowThought();
+			_gui.StartTimer(30);
 		}
 	}
 
 	public void SetFocusPerson(Person person)
 	{
+		// Make sure to unset the old
+		focusPerson?.SetFocus(false);
+
 		focusPerson = person;
 		person.SetFocus(true);
+		_camera.Position = person.Position;
 	}
 }

@@ -15,7 +15,47 @@
    height="600"
    width="1024">
   <defs
-     id="defs2" />
+     id="defs2">
+    <filter
+       height="1.3649038"
+       y="-0.18245192"
+       width="1.094403"
+       x="-0.047201493"
+       id="filter969"
+       style="color-interpolation-filters:sRGB"
+       inkscape:collect="always">
+      <feGaussianBlur
+         id="feGaussianBlur971"
+         stdDeviation="0.74709356"
+         inkscape:collect="always" />
+    </filter>
+    <filter
+       height="1.3297855"
+       y="-0.16489275"
+       width="1.1064904"
+       x="-0.053245197"
+       id="filter985"
+       style="color-interpolation-filters:sRGB"
+       inkscape:collect="always">
+      <feGaussianBlur
+         id="feGaussianBlur987"
+         stdDeviation="0.058827404"
+         inkscape:collect="always" />
+    </filter>
+    <filter
+       height="1.2543284"
+       y="-0.12716422"
+       width="1.106367"
+       x="-0.053183513"
+       id="filter993"
+       style="color-interpolation-filters:sRGB"
+       inkscape:collect="always">
+      <feGaussianBlur
+         id="feGaussianBlur995"
+         stdDeviation="0.097180817"
+         inkscape:collect="always" />
+    </filter>
+  </defs>
   <sodipodi:namedview
      inkscape:snap-global="false"
      inkscape:window-maximized="1"
@@ -28,9 +68,9 @@
      inkscape:document-rotation="0"
      inkscape:current-layer="layer1"
      inkscape:document-units="px"
-     inkscape:cy="261.29338"
-     inkscape:cx="460.62051"
-     inkscape:zoom="0.98994949"
+     inkscape:cy="301.65974"
+     inkscape:cx="256.39622"
+     inkscape:zoom="1.4"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      borderopacity="1.0"
@@ -107,6 +147,57 @@
          x="36.965813"
          y="115.67669"
          ry="5.8542986" />
+    </g>
+    <g
+       inkscape:export-ydpi="96.0103"
+       inkscape:export-xdpi="96.0103"
+       inkscape:export-filename="C:\Godot\godot-racing_thoughts\devFiles\thought\thought_bubble.png"
+       transform="translate(-2.0744579,2.0744579)"
+       id="g1003">
+      <ellipse
+         ry="0.42811394"
+         rx="1.3258076"
+         cy="95.544945"
+         cx="55.148739"
+         id="ellipse949"
+         style="fill:#1a1a1a;stroke:#000000;stroke-width:0.264583;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:200;filter:url(#filter985)" />
+      <ellipse
+         style="fill:#1a1a1a;stroke:#000000;stroke-width:0.264583;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:200;filter:url(#filter993)"
+         id="ellipse951"
+         cx="59.117489"
+         cy="93.56057"
+         rx="2.192728"
+         ry="0.91705811" />
+      <rect
+         ry="2.873137"
+         y="80.882149"
+         x="40.911175"
+         height="9.8273811"
+         width="37.986607"
+         id="rect859"
+         style="fill:#333333;stroke:#000000;stroke-width:0.264583;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:200;filter:url(#filter969)" />
+      <ellipse
+         style="fill:#f9f9f9;stroke:#000000;stroke-width:0.264583;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:200"
+         id="path853"
+         cx="54.948288"
+         cy="95.34449"
+         rx="1.3258076"
+         ry="0.42811394" />
+      <ellipse
+         ry="0.91705811"
+         rx="2.192728"
+         cy="93.360115"
+         cx="58.917038"
+         id="ellipse855"
+         style="fill:#f9f9f9;stroke:#000000;stroke-width:0.264583;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:200" />
+      <rect
+         style="fill:#f9f9f9;stroke:#000000;stroke-width:0.264583;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:200"
+         id="rect857"
+         width="37.986607"
+         height="9.8273811"
+         x="40.443455"
+         y="80.414429"
+         ry="2.873137" />
     </g>
   </g>
 </svg>

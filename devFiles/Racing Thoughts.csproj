@@ -58,7 +58,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="thought\Thought.cs" />
     <Compile Include="thought\thought_parts\ThoughtPart.cs" />
+    <Compile Include="worlds\PersonSpawner.cs" />
     <Compile Include="worlds\World.cs" />
+    <Compile Include="worlds\WorldGUI.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
