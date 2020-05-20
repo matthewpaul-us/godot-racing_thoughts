@@ -7,6 +7,8 @@ public class Thought : Node2D
 {
 	private bool _isFrozen;
 
+	private Sprite _shadow;
+
 	public bool IsFrozen
 	{
 		get { return _isFrozen; }
@@ -19,6 +21,7 @@ public class Thought : Node2D
 	private Timer _timer;
 	public override void _Ready()
 	{
+		_shadow = GetNode<Sprite>("Shadow");
 		_timer = GetNode<Timer>("Timer");
 		HideThought();
 
@@ -43,10 +46,14 @@ public class Thought : Node2D
 		if(isFrozen)
 		{
 			_timer.Paused = true;
+			Scale = Vector2.One * 1.5f;
+			_shadow.Show();
 		}
 		else
 		{
 			_timer.Paused = false;
+			Scale = Vector2.One;
+			_shadow.Hide();
 		}
 
 		_isFrozen = isFrozen;

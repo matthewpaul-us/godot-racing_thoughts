@@ -8,23 +8,28 @@ namespace RacingThoughts.misc
 {
     public class RandomSingleton
     {
-        private static Random _random;
+        private static AugmentedRandom _random;
 
-        public static Random GetInstance(string seed = null)
+        public static AugmentedRandom GetInstance(string seed = null)
         {
             if(_random == null)
             {
                 if (seed != null)
                 {
-                    _random = new Random(seed.GetHashCode());
+                    _random = new AugmentedRandom(seed);
                 }
                 else
                 {
-                    _random = new Random();
+                    _random = new AugmentedRandom();
                 }
             }
 
             return _random;
+        }
+
+        public static void SetInstance(AugmentedRandom random)
+        {
+            _random = random;
         }
 
     }

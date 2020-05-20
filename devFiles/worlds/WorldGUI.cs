@@ -8,8 +8,10 @@ public class WorldGUI : CanvasLayer
 	private Label _timeLeftLabel;
 	private TextureProgress _progressBar;
 	private Area2D _hoverCheckArea;
+	private EndWorldMenu _endMenu;
 
-	private float timeLeft;
+	private float _totalTimeAvailable;
+	private float _timeLeft;
 	private bool isTimerRunning;
 
 	public override void _Ready()
@@ -18,6 +20,7 @@ public class WorldGUI : CanvasLayer
 		_hoverCheckArea = GetNode<Area2D>("TimeLeftControl/Area2D");
 		_timeLeftLabel = GetNode<Label>("TimeLeftControl/TimeLeftLabel");
 		_progressBar = GetNode<TextureProgress>("TimeLeftControl/ProgressBar");
+		_endMenu = GetNode<EndWorldMenu>("EndWorldMenu");
 
 		_hoverCheckArea.Connect("mouse_entered", this, nameof(OnTimeLeftControlMouseEnter));
 		_hoverCheckArea.Connect("mouse_exited", this, nameof(OnTimeLeftControlMouseExit));
@@ -27,10 +30,10 @@ public class WorldGUI : CanvasLayer
 	{
 		if(isTimerRunning)
 		{
-			timeLeft -= delta;
+			_timeLeft -= delta;
 
-			_timeLeftLabel.Text = timeLeft.ToString("0.00");
-			_progressBar.Value = timeLeft;
+			_timeLeftLabel.Text = _timeLeft.ToString("0.00");
+			_progressBar.Value = _timeLeft;
 		}
 	}
 
@@ -38,9 +41,25 @@ public class WorldGUI : CanvasLayer
 	{
 		_timeLeftLabel.Text = timeSeconds.ToString("0.00");
 		_progressBar.MaxValue = timeSeconds;
-		_progressBar.Value = timeLeft;
-		timeLeft = timeSeconds;
+		_progressBar.Value = _timeLeft;
+
+		_totalTimeAvailable = timeSeconds;
+		_timeLeft = timeSeconds;
 		isTimerRunning = true;
+	}
+
+	public void StopTimer()
+	{
+		isTimerRunning = false;
+	}
+
+	public void ShowEndWorldMenu(string seed, int connections)
+	{
+		_endMenu.SetSeed(seed);
+		_endMenu.SetTimeScore(_totalTimeAvailable - _timeLeft);
+		_endMenu.SetConnectionScore(connections);
+
+		_endMenu.Show();
 	}
 
 	public void OnTimeLeftControlMouseEnter()

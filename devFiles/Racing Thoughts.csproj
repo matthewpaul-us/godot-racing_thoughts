@@ -43,21 +43,28 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GodotSharp">
-      <HintPath>$(ProjectDir)\.mono\assemblies\$(ApiConfiguration)\GodotSharp.dll</HintPath>
       <Private>False</Private>
+      <HintPath>$(ProjectDir)/.mono/assemblies/$(ApiConfiguration)/GodotSharp.dll</HintPath>
     </Reference>
     <Reference Include="GodotSharpEditor" Condition=" '$(Configuration)' == 'Tools' ">
-      <HintPath>$(ProjectDir)\.mono\assemblies\$(ApiConfiguration)\GodotSharpEditor.dll</HintPath>
       <Private>False</Private>
+      <HintPath>$(ProjectDir)/.mono/assemblies/$(ApiConfiguration)/GodotSharpEditor.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Globals.cs" />
+    <Compile Include="LoadLevelMenu.cs" />
+    <Compile Include="MainMenu.cs" />
+    <Compile Include="main\LevelLoader.cs" />
+    <Compile Include="misc\AugmentedRandom.cs" />
     <Compile Include="misc\RandomSingleton.cs" />
     <Compile Include="people\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="targetCamera\TargetCamera.cs" />
     <Compile Include="thought\Thought.cs" />
     <Compile Include="thought\thought_parts\ThoughtPart.cs" />
+    <Compile Include="worlds\EndWorldMenu.cs" />
     <Compile Include="worlds\PersonSpawner.cs" />
     <Compile Include="worlds\World.cs" />
     <Compile Include="worlds\WorldGUI.cs" />

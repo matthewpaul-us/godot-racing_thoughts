@@ -1,11 +1,18 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://thought/thought_bubble.png" type="Texture" id=1]
 [ext_resource path="res://thought/Thought.cs" type="Script" id=2]
 [ext_resource path="res://thought/thought_parts/ThoughtPart.tscn" type="PackedScene" id=3]
+[ext_resource path="res://thought/thought_shadow.png" type="Texture" id=4]
 
 [node name="Thought" type="Node2D"]
+z_index = 5
 script = ExtResource( 2 )
+
+[node name="Shadow" type="Sprite" parent="."]
+visible = false
+position = Vector2( 14.7037, -37.2896 )
+texture = ExtResource( 4 )
 
 [node name="thought_bubble" type="Sprite" parent="."]
 position = Vector2( 17.2589, -29.1188 )

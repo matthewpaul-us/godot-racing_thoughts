@@ -9,18 +9,26 @@ public class World : Node2D
 	private Random _rand;
 
 	private Person focusPerson;
+	private Person targetPerson;
 	private List<Person> people;
 	private Camera2D _camera;
 	private PersonSpawner _spawner;
 	private WorldGUI _gui;
+	private YSort _sort;
+	private TargetCamera _targetCam;
+
+	private int _connectionsMade;
 
 	public override void _Ready()
 	{
 		_camera = GetNode<Camera2D>("Camera");
 		_spawner = GetNode<PersonSpawner>("PersonSpawner");
 		_gui = GetNode<WorldGUI>("WorldGUI");
+		_sort = GetNode<YSort>("YSort");
+		_targetCam = GetNode<TargetCamera>("TargetCamera");
 
 		_spawner.SpawnArea = GetNode<TextureRect>("SpawnerRect");
+		_spawner.SortLayer = _sort;
 
 		var seed = "Fair Time Grows";
 
@@ -28,21 +36,43 @@ public class World : Node2D
 
 		_spawner.Spawn();
 
-		people = GetChildren()
+		people = _sort.GetChildren()
 			.Cast<Node>()
 			.Where(c => c is Person)
 			.Cast<Person>()
 			.ToList()
 			;
 
-		var timer = GetNode<Timer>("Timer");
-
-		timer.Connect("timeout", this, nameof(OnTimerTimeout));
-
+		Person minXPerson = null, maxXPerson = null;
 		foreach (var person in people)
 		{
 			person.Connect(nameof(Person.ThoughtClicked), this, nameof(OnPersonThoughtClicked));
+
+			// Find the left most person
+			if(minXPerson == null || person.Position.x < minXPerson.Position.x)
+			{
+				minXPerson = person;
+			}
+
+			// Find the right most person
+			if(maxXPerson == null || person.Position.x > maxXPerson.Position.x)
+			{
+				maxXPerson = person;
+			}
 		}
+		SetFocusPerson(minXPerson);
+		SetTargetPerson(maxXPerson);
+		minXPerson.ShowThought();
+		_gui.StartTimer(30);
+	}
+
+	private void SetTargetPerson(Person person)
+	{
+		targetPerson = person;
+
+		person.IsTarget = true;
+
+		_targetCam.TargetPerson = person;
 	}
 
 	public void OnPersonThoughtClicked(Person person, ThoughtPart part)
@@ -63,19 +93,19 @@ public class World : Node2D
 		GD.Print($"Transition to {person.Name}");
 
 		SetFocusPerson(person);
+
+		_connectionsMade++;
+
+		if(person == targetPerson)
+		{
+			PlayWin();
+		}
 	}
 
-	public void OnTimerTimeout()
+	public void PlayWin()
 	{
-		var randomPerson = people[_rand.Next(people.Count())];
-
-		if (focusPerson == null)
-		{
-			SetFocusPerson(randomPerson);
-			randomPerson.ShowThought();
-
-			_gui.StartTimer(30);
-		}
+		_gui.StopTimer();
+		_gui.ShowEndWorldMenu(Globals.LevelLoader.Random.Seed, _connectionsMade);
 	}
 
 	public void SetFocusPerson(Person person)
@@ -86,5 +116,7 @@ public class World : Node2D
 		focusPerson = person;
 		person.SetFocus(true);
 		_camera.Position = person.Position;
+
+		_targetCam.FocusPerson = person;
 	}
 }

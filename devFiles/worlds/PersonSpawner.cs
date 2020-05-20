@@ -1,14 +1,22 @@
 using Godot;
 using RacingThoughts.misc;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public class PersonSpawner : Node
 {
 	[Export] public PackedScene PersonInstance;
+	[Export]public List<Texture> PersonTextures;
 	[Export] public TextureRect SpawnArea;
 	[Export] public int NumberToSpawn;
 
-	private Random _rand;
+	[Export] public Color PersonColor;
+	[Export(PropertyHint.Range, "0,1")] public float ColorVariation;
+
+	public YSort SortLayer;
+
+	private AugmentedRandom _rand;
 	public override void _Ready()
 	{
 		_rand = RandomSingleton.GetInstance();
@@ -23,7 +31,14 @@ public class PersonSpawner : Node
 
 			newPerson.Position = position;
 
-			Owner.AddChild(newPerson);
+			var color = PersonColor;
+			color = color.Lightened((float)_rand.NextDouble() * ColorVariation).Blend(color.Darkened((float)_rand.NextDouble() * ColorVariation));
+
+			var texture = _rand.Random(PersonTextures);
+
+			SortLayer.AddChild(newPerson);
+			newPerson.SetColor(color);
+			newPerson.SetTexture(texture);
 		}
 	}
 

@@ -1,6 +1,7 @@
 using Godot;
 using RacingThoughts.misc;
 using System;
+using System.Collections.Generic;
 
 public class Person : Area2D
 {
@@ -10,6 +11,26 @@ public class Person : Area2D
 
 	private bool _hasFocus;
 	public bool HasFocus { get { return _hasFocus; } set { SetFocus(value); } }
+
+	private bool _isTarget;
+
+	private Sprite _sprite;
+
+	public bool IsTarget
+	{
+		get { return _isTarget; }
+		set { SetIsTarget(value); }
+	}
+
+	private void SetIsTarget(bool value)
+	{
+		_isTarget = value;
+		FocusIcon.Visible = _isTarget;
+
+		Thought.SetFreeze(true);
+		Thought.ZIndex += 10;
+		FocusIcon.Show();
+	}
 
 	[Signal] public delegate void ThoughtClicked(Person person, ThoughtPart part);
 
@@ -23,10 +44,21 @@ public class Person : Area2D
 		Thought = GetNode<Thought>("Thought");
 		FocusIcon = GetNode<Sprite>("FocusIcon");
 		_timer = GetNode<Timer>("Timer");
+		_sprite = GetNode<Sprite>("Sprite");
 
 		_timer.Connect("timeout", this, nameof(OnTimerTimeout));
 		_timer.WaitTime = (float)(_rand.NextDouble() * 2.0 + 2.0);
 		_timer.Start();
+	}
+
+	internal void SetTexture(Texture texture)
+	{
+		_sprite.Texture = texture;
+	}
+
+	internal void SetColor(Color color)
+	{
+		_sprite.Modulate = color;
 	}
 
 	public void HideThought()
@@ -71,5 +103,10 @@ public class Person : Area2D
 	public void OnTimerTimeout()
 	{
 		ShowThought();
+	}
+
+	public void SetTarget(bool isTarget)
+	{
+
 	}
 }

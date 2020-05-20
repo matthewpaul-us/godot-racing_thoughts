@@ -15,7 +15,35 @@
    height="600"
    width="1024">
   <defs
-     id="defs2" />
+     id="defs2">
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="Arrow1Lstart"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lstart">
+      <path
+         transform="scale(0.8) translate(12.5,0)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path3451" />
+    </marker>
+    <filter
+       height="1.0804551"
+       y="-0.040227537"
+       width="1.0581824"
+       x="-0.029091213"
+       id="filter3827"
+       style="color-interpolation-filters:sRGB"
+       inkscape:collect="always">
+      <feGaussianBlur
+         id="feGaussianBlur3829"
+         stdDeviation="0.34536894"
+         inkscape:collect="always" />
+    </filter>
+  </defs>
   <sodipodi:namedview
      inkscape:snap-global="false"
      inkscape:window-maximized="1"
@@ -26,11 +54,11 @@
      units="px"
      showgrid="false"
      inkscape:document-rotation="0"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer3"
      inkscape:document-units="px"
-     inkscape:cy="301.65974"
-     inkscape:cx="256.39622"
-     inkscape:zoom="1.4"
+     inkscape:cy="345.02102"
+     inkscape:cx="406.29802"
+     inkscape:zoom="0.98994949"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      borderopacity="1.0"
@@ -50,7 +78,62 @@
     </rdf:RDF>
   </metadata>
   <g
+     style="display:inline"
+     inkscape:label="background"
+     id="layer2"
+     inkscape:groupmode="layer" />
+  <g
+     style="display:inline;opacity:1;"
+     inkscape:label="Shadows"
+     id="layer3"
+     inkscape:groupmode="layer">
+    <path
+       inkscape:export-ydpi="96.0103"
+       inkscape:export-xdpi="96.0103"
+       inkscape:export-filename="C:\Godot\godot-racing_thoughts\devFiles\targetCamera\targetCameraBack.png"
+       id="path1732"
+       style="opacity:0.551613;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke;filter:url(#filter3827)"
+       d="m 238.65087,83.985829 c 0.89737,0.194014 -0.99381,-6.369282 -0.26727,-5.813301 l 13.42565,10.273913 -13.42565,10.273916 c -0.72654,0.555981 1.10289,-5.643924 0.20045,-5.474526 -2.02085,0.188384 -6.8273,-0.07654 -13.7573,0 l -0.10697,-9.260002 c 7.84545,0.02832 6.96301,-0.214079 13.93109,0 z"
+       sodipodi:nodetypes="cscscccc" />
+    <rect
+       inkscape:export-ydpi="96.0103"
+       inkscape:export-xdpi="96.0103"
+       inkscape:export-filename="C:\Godot\godot-racing_thoughts\devFiles\worlds\endworldmenu_background.png"
+       ry="2.8375859"
+       y="22.98518"
+       x="9.3544331"
+       height="125.4125"
+       width="96.837502"
+       id="rect3831"
+       style="opacity:1;fill:#333333;fill-opacity:1;stroke:none;stroke-width:0;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;paint-order:markers fill stroke" />
+  </g>
+  <g
+     sodipodi:insensitive="true"
      id="layer1"
      inkscape:groupmode="layer"
-     inkscape:label="Layer 1" />
+     inkscape:label="Layer 1">
+    <path
+       sodipodi:nodetypes="cscscccc"
+       d="m 238.10613,85.862239 c 0.69,0.1508 -0.55864,-5.833506 0,-5.401361 l 10.32308,7.985545 -10.32308,7.985546 c -0.55864,0.432145 0.6939,-5.633254 0,-5.501587 -1.55384,0.146425 -6.12295,-0.05949 -11.45147,0 l -0.13363,-5.068143 c 6.03242,0.02201 6.2273,-0.166396 11.5851,0 z"
+       style="opacity:1;fill:#e6e6e6;fill-opacity:1;stroke:#000000;stroke-width:2.11667;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:200"
+       id="rect1644" />
+    <circle
+       inkscape:export-ydpi="96.0103"
+       inkscape:export-xdpi="96.0103"
+       inkscape:export-filename="C:\Godot\godot-racing_thoughts\devFiles\worlds\time_progress_over.png"
+       r="15.859661"
+       cy="21.381563"
+       cx="135.46666"
+       id="path1005"
+       style="opacity:1;fill:#ffffff;stroke:#000000;stroke-width:0.529167;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:200" />
+    <circle
+       inkscape:export-ydpi="96.0103"
+       inkscape:export-xdpi="96.0103"
+       inkscape:export-filename="C:\Godot\godot-racing_thoughts\devFiles\worlds\time_progress_over.png"
+       r="8.4447203"
+       cy="21.381563"
+       cx="135.46666"
+       id="path1007"
+       style="opacity:1;fill:#ececec;stroke:#000000;stroke-width:0.477706;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:200" />
+  </g>
 </svg>
