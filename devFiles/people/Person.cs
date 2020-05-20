@@ -118,6 +118,3 @@ public class Person : Area2D
 		ShowThought();
 	}
 }
-
-
-

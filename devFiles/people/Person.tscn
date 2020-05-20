@@ -19,7 +19,6 @@ texture = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="Thought" parent="." instance=ExtResource( 2 )]
-visible = false
 position = Vector2( -8.82352, -66.1763 )
 
 [node name="FocusIcon" type="Sprite" parent="."]
@@ -29,4 +28,15 @@ texture = ExtResource( 4 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0
-[connection signal="mouse_entered" from="." to="." method="OnPersonMouseEntered"]
+
+[node name="YSort" type="YSort" parent="."]
+
+[node name="TextureButton" type="TextureButton" parent="YSort"]
+margin_left = -19.0
+margin_top = -70.0
+margin_right = 19.0
+margin_bottom = 70.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="mouse_entered" from="YSort/TextureButton" to="." method="OnPersonMouseEntered"]
