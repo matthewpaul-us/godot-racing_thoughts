@@ -6,7 +6,7 @@
 [ext_resource path="res://icon.png" type="Texture" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 19.7704
+radius = 25.747
 height = 91.1039
 
 [node name="Person" type="Area2D"]
@@ -19,6 +19,7 @@ texture = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="Thought" parent="." instance=ExtResource( 2 )]
+visible = false
 position = Vector2( -8.82352, -66.1763 )
 
 [node name="FocusIcon" type="Sprite" parent="."]
@@ -28,3 +29,4 @@ texture = ExtResource( 4 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0
+[connection signal="mouse_entered" from="." to="." method="OnPersonMouseEntered"]

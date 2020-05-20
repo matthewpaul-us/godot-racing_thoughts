@@ -21,6 +21,7 @@ script = ExtResource( 2 )
 [node name="Background" type="TextureRect" parent="."]
 margin_right = 4096.0
 margin_bottom = 2400.0
+mouse_filter = 2
 texture = ExtResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -78,6 +79,7 @@ ColorVariation = 0.3
 [node name="SpawnerRect" type="TextureRect" parent="."]
 margin_right = 4096.0
 margin_bottom = 2400.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }

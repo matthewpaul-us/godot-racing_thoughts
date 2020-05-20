@@ -49,6 +49,8 @@ public class Person : Area2D
 		_timer.Connect("timeout", this, nameof(OnTimerTimeout));
 		_timer.WaitTime = (float)(_rand.NextDouble() * 2.0 + 2.0);
 		_timer.Start();
+
+		Thought.Randomize();
 	}
 
 	internal void SetTexture(Texture texture)
@@ -102,11 +104,20 @@ public class Person : Area2D
 
 	public void OnTimerTimeout()
 	{
-		ShowThought();
+		Thought.Randomize();
 	}
 
 	public void SetTarget(bool isTarget)
 	{
 
 	}
+
+	private void OnPersonMouseEntered()
+	{
+		GD.Print("Show Thought!");
+		ShowThought();
+	}
 }
+
+
+

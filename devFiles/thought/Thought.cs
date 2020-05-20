@@ -9,11 +9,15 @@ public class Thought : Node2D
 
 	private Sprite _shadow;
 
+	private AnimationPlayer _anim;
+
 	public bool IsFrozen
 	{
 		get { return _isFrozen; }
 		set { SetFreeze(value); }
 	}
+
+	public bool IsThoughtVisible { get; set; }
 
 	public bool MyProperty { get; set; }
 	public List<ThoughtPart> parts;
@@ -23,6 +27,8 @@ public class Thought : Node2D
 	{
 		_shadow = GetNode<Sprite>("Shadow");
 		_timer = GetNode<Timer>("Timer");
+		_anim = GetNode<AnimationPlayer>("AnimationPlayer");
+
 		HideThought();
 
 		_timer.Connect("timeout", this, nameof(HideThought));
@@ -68,18 +74,29 @@ public class Thought : Node2D
 
 			if(!IsFrozen)
 			{
-				foreach(var part in parts)
-				{
-					part.Randomize();
-				}
+				//Randomize();
 			}
 
 			Show();
+			_anim.Play("show");
 		}
 		else
 		{
-			Hide();
+			_anim.Play("hide");
 			_timer.Stop();
+		}
+
+		IsThoughtVisible = isVisible;
+	}
+
+	public void Randomize()
+	{
+		if(!IsThoughtVisible)
+		{
+			foreach (var part in parts)
+			{
+				part.Randomize();
+			}
 		}
 	}
 
