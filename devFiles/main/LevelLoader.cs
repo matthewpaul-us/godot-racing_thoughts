@@ -32,7 +32,7 @@ public class LevelLoader : Node2D
 		LoadLevel(LoadedScenePath, Random.Seed);
 	}
 
-    public async void LoadLevel(string resourcePath, string seed = null)
+	public async void LoadLevel(string resourcePath, string seed = null)
 	{
 		await LowerCurtain();
 		if(LoadedScene != null)

@@ -3,39 +3,35 @@ using RacingThoughts.misc;
 using System;
 using System.Collections.Generic;
 
-public class Person : Area2D
+public class Person : KinematicBody2D
 {
 	public Sprite FocusIcon;
 
+	[Export] public Color NormalColor;
+	[Export] public Color ShiningColor;
 	public Thought Thought;
-
+	public Vector2 Velocity = Vector2.Zero;
+	private AnimationPlayer _anim;
+	private PersonStateMachine _brain;
 	private bool _hasFocus;
-	public bool HasFocus { get { return _hasFocus; } set { SetFocus(value); } }
-
 	private bool _isTarget;
-
+	private Random _rand;
 	private Sprite _sprite;
+	private Timer _timer;
+	private Tween _tween;
+	[Signal] public delegate void ThoughtClicked(Person person, ThoughtPart part);
 
+	public bool HasFocus { get { return _hasFocus; } set { SetFocus(value); } }
 	public bool IsTarget
 	{
 		get { return _isTarget; }
 		set { SetIsTarget(value); }
 	}
 
-	private void SetIsTarget(bool value)
+	public override void _PhysicsProcess(float delta)
 	{
-		_isTarget = value;
-		FocusIcon.Visible = _isTarget;
-
-		Thought.SetFreeze(true);
-		Thought.ZIndex += 10;
-		FocusIcon.Show();
+		MoveAndCollide(Velocity);
 	}
-
-	[Signal] public delegate void ThoughtClicked(Person person, ThoughtPart part);
-
-	private Timer _timer;
-	private Random _rand;
 
 	public override void _Ready()
 	{
@@ -45,6 +41,9 @@ public class Person : Area2D
 		FocusIcon = GetNode<Sprite>("FocusIcon");
 		_timer = GetNode<Timer>("Timer");
 		_sprite = GetNode<Sprite>("Sprite");
+		_anim = GetNode<AnimationPlayer>("AnimationPlayer");
+		_brain = GetNode<PersonStateMachine>("Brain");
+		_tween = GetNode<Tween>("Tween");
 
 		_timer.Connect("timeout", this, nameof(OnTimerTimeout));
 		_timer.WaitTime = (float)(_rand.NextDouble() * 2.0 + 2.0);
@@ -53,14 +52,9 @@ public class Person : Area2D
 		Thought.Randomize();
 	}
 
-	internal void SetTexture(Texture texture)
+	public bool HasThought(ThoughtPart part)
 	{
-		_sprite.Texture = texture;
-	}
-
-	internal void SetColor(Color color)
-	{
-		_sprite.Modulate = color;
+		return Thought.HasThought(part);
 	}
 
 	public void HideThought()
@@ -74,6 +68,23 @@ public class Person : Area2D
 		EmitSignal(nameof(ThoughtClicked), this, part);
 	}
 
+	public void OnTimerTimeout()
+	{
+		Thought.Randomize();
+	}
+
+	public void PlayAnimation(string animationName)
+	{
+		if (!string.IsNullOrWhiteSpace(animationName))
+		{
+			_anim.Play(animationName);
+		}
+		else
+		{
+			_anim.Stop();
+		}
+	}
+
 	public void SetFocus(bool isFocused)
 	{
 		if (isFocused)
@@ -81,30 +92,35 @@ public class Person : Area2D
 			Thought.SetFreeze(true);
 			Thought.ZIndex += 10;
 			FocusIcon.Show();
+			_brain.SetState("picked");
 		}
 		else
 		{
 			Thought.SetFreeze(false);
 			Thought.ZIndex -= 10;
 			FocusIcon.Hide();
+			_brain.SetState("wait");
 		}
 
 		_hasFocus = isFocused;
 	}
 
-	public void ShowThought()
+	public void SetShine(bool isShining)
 	{
-		Thought.ShowThought(4);
-	}
+		if (isShining)
+		{
+			GD.Print(NormalColor);
+			GD.Print(ShiningColor);
+			_tween.InterpolateProperty(_sprite, "modulate", NormalColor, ShiningColor,
+				1, Tween.TransitionType.Circ, Tween.EaseType.Out);
+		}
+		else
+		{
+			_tween.InterpolateProperty(_sprite, "modulate", ShiningColor, NormalColor,
+				0.5f, Tween.TransitionType.Circ, Tween.EaseType.In);
+		}
 
-	public bool HasThought(ThoughtPart part)
-	{
-		return Thought.HasThought(part);
-	}
-
-	public void OnTimerTimeout()
-	{
-		Thought.Randomize();
+		_tween.Start();
 	}
 
 	public void SetTarget(bool isTarget)
@@ -112,9 +128,36 @@ public class Person : Area2D
 
 	}
 
+	public void ShowThought()
+	{
+		Thought.ShowThought(4);
+	}
+
+	internal void SetColor(Color color)
+	{
+		_sprite.Modulate = color;
+	}
+
+	internal void SetTexture(Texture texture)
+	{
+		_sprite.Texture = texture;
+	}
+
 	private void OnPersonMouseEntered()
 	{
-		GD.Print("Show Thought!");
-		ShowThought();
+		if (!Thought.IsThoughtVisible)
+		{
+			ShowThought();
+		}
+	}
+
+	private void SetIsTarget(bool value)
+	{
+		_isTarget = value;
+		FocusIcon.Visible = _isTarget;
+
+		Thought.SetFreeze(true);
+		Thought.ZIndex += 10;
+		FocusIcon.Show();
 	}
 }

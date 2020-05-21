@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://people/Person.tscn" type="PackedScene" id=1]
 [ext_resource path="res://worlds/World.cs" type="Script" id=2]
@@ -15,10 +15,32 @@ extents = Vector2( 20, 300 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 512, 20 )
 
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 129.337, 44.3142 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 48.365, 103.065 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 116.08, 493.432 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 495.911, 107.139 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 2078.58, 61.28 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 68.4263, 1270.95 )
+
+[sub_resource type="CircleShape2D" id=9]
+radius = 362.689
+
 [node name="World" type="Node2D"]
 script = ExtResource( 2 )
 
 [node name="Background" type="TextureRect" parent="."]
+modulate = Color( 0.0784314, 0.129412, 0.239216, 1 )
 margin_right = 4096.0
 margin_bottom = 2400.0
 mouse_filter = 2
@@ -73,7 +95,8 @@ script = ExtResource( 3 )
 PersonInstance = ExtResource( 1 )
 PersonTextures = [ ExtResource( 6 ), ExtResource( 7 ) ]
 NumberToSpawn = 400
-PersonColor = Color( 0.988235, 0.639216, 0.0666667, 1 )
+PersonColor = Color( 0.627451, 0.627451, 0.627451, 1 )
+PersonShineColor = Color( 0.988235, 0.639216, 0.0666667, 1 )
 ColorVariation = 0.3
 
 [node name="SpawnerRect" type="TextureRect" parent="."]
@@ -89,3 +112,108 @@ __meta__ = {
 [node name="YSort" type="YSort" parent="."]
 
 [node name="TargetCamera" parent="." instance=ExtResource( 5 )]
+
+[node name="Colliders" type="Node" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Colliders"]
+position = Vector2( 125.598, 369.451 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/StaticBody2D"]
+shape = SubResource( 3 )
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Colliders"]
+position = Vector2( 66.732, 1988.27 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/StaticBody2D2"]
+shape = SubResource( 3 )
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Colliders"]
+position = Vector2( 4040.21, 1988.27 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/StaticBody2D3"]
+shape = SubResource( 3 )
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Colliders"]
+position = Vector2( 3951.91, 428.317 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/StaticBody2D4"]
+shape = SubResource( 3 )
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="Colliders"]
+position = Vector2( 3611.92, 104.552 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/StaticBody2D5"]
+shape = SubResource( 4 )
+
+[node name="StaticBody2D6" type="StaticBody2D" parent="Colliders"]
+position = Vector2( 3709.76, 2317.57 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/StaticBody2D6"]
+shape = SubResource( 4 )
+
+[node name="StaticBody2D7" type="StaticBody2D" parent="Colliders"]
+position = Vector2( 397.217, 2317.57 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/StaticBody2D7"]
+shape = SubResource( 4 )
+
+[node name="StaticBody2D8" type="StaticBody2D" parent="Colliders"]
+position = Vector2( 462.443, 48.6448 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/StaticBody2D8"]
+shape = SubResource( 4 )
+
+[node name="StaticBody2D9" type="StaticBody2D" parent="Colliders"]
+position = Vector2( 893.227, 1197.26 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/StaticBody2D9"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D10" type="StaticBody2D" parent="Colliders"]
+position = Vector2( 3214.03, 1197.26 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/StaticBody2D10"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D11" type="StaticBody2D" parent="Colliders"]
+position = Vector2( 3214.03, 1197.26 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/StaticBody2D11"]
+shape = SubResource( 6 )
+
+[node name="NorthWall" type="StaticBody2D" parent="Colliders"]
+position = Vector2( 3214.03, 1197.26 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/NorthWall"]
+position = Vector2( -1172.79, -1257.06 )
+shape = SubResource( 7 )
+
+[node name="SouthWall" type="StaticBody2D" parent="Colliders"]
+position = Vector2( 2041.44, 2440.34 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/SouthWall"]
+shape = SubResource( 7 )
+
+[node name="EastWall" type="StaticBody2D" parent="Colliders"]
+position = Vector2( 4173.25, 1238.93 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/EastWall"]
+shape = SubResource( 8 )
+
+[node name="WestWall" type="StaticBody2D" parent="Colliders"]
+position = Vector2( -65.2798, 1238.93 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/WestWall"]
+shape = SubResource( 8 )
+
+[node name="StaticBody2D12" type="StaticBody2D" parent="Colliders"]
+position = Vector2( 893.227, 1197.26 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/StaticBody2D12"]
+shape = SubResource( 6 )
+
+[node name="StaticBody2D13" type="StaticBody2D" parent="Colliders"]
+position = Vector2( 2048.95, 1197.26 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/StaticBody2D13"]
+shape = SubResource( 9 )

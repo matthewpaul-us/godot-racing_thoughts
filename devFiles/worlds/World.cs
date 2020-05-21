@@ -60,6 +60,11 @@ public class World : Node2D
 				maxXPerson = person;
 			}
 		}
+
+		// Have to defer to give the FSM a chance to catch up on first execution
+		CallDeferred(nameof(SetFocusPerson), minXPerson);
+		CallDeferred(nameof(SetTargetPerson), maxXPerson);
+
 		SetFocusPerson(minXPerson);
 		SetTargetPerson(maxXPerson);
 		minXPerson.ShowThought();
@@ -90,9 +95,8 @@ public class World : Node2D
 			return;
 		}
 
-		GD.Print($"Transition to {person.Name}");
-
 		SetFocusPerson(person);
+		person.SetShine(true);
 
 		_connectionsMade++;
 
