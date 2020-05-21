@@ -13,6 +13,7 @@ public class PersonSpawner : Node
 
 	[Export] public Color PersonColor;
 	[Export] public Color PersonShineColor;
+	[Export] public Color PersonInfectedColor;
 	[Export(PropertyHint.Range, "0,1")] public float ColorVariation;
 
 	public YSort SortLayer;
@@ -32,25 +33,30 @@ public class PersonSpawner : Node
 
 			newPerson.Position = position;
 
-			var color = PersonColor;
-			color = color.Lightened((float)_rand.NextDouble() * ColorVariation).Blend(color.Darkened((float)_rand.NextDouble() * ColorVariation));
-
-			var shineColor = PersonShineColor;
-			shineColor = shineColor.Lightened((float)_rand.NextDouble() * ColorVariation).Blend(shineColor.Darkened((float)_rand.NextDouble() * ColorVariation));
-
 			var texture = _rand.Random(PersonTextures);
 
 			SortLayer.AddChild(newPerson);
-			newPerson.SetColor(color);
 
-			newPerson.NormalColor = color;
-			newPerson.ShiningColor = shineColor;
+			var normalColor = Randomize(PersonColor, ColorVariation);
+			var shiningColor = Randomize(PersonShineColor, ColorVariation);
+			var infectedColor = Randomize(PersonInfectedColor, ColorVariation);
+
+			newPerson.SetColor(normalColor);
+
+			newPerson.NormalColor = normalColor;
+			newPerson.ShiningColor = shiningColor;
+			newPerson.InfectedColor = infectedColor;
 
 			newPerson.SetTexture(texture);
 		}
 	}
 
-	private Vector2 GetRandomPosition()
+	private Color Randomize(Color color, float variation)
+	{
+        return color.Lightened((float)_rand.NextDouble() * variation).Blend(color.Darkened((float)_rand.NextDouble() * variation));
+    }
+
+    private Vector2 GetRandomPosition()
 	{
 		var topLeftPos = SpawnArea.RectPosition;
 		var size = SpawnArea.RectSize;

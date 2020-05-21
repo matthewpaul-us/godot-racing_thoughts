@@ -4,3 +4,5 @@
 
 [node name="Infection" type="Node"]
 script = ExtResource( 1 )
+MinInfectionTickSeconds = 0.5
+MaxInfectionTickSeconds = 10.0

@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://GeosansLight.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://worlds/time_progress_over.png" type="Texture" id=2]
 [ext_resource path="res://worlds/WorldGUI.cs" type="Script" id=3]
 [ext_resource path="res://worlds/time_progress_fill.png" type="Texture" id=4]
 [ext_resource path="res://worlds/EndWorldMenu.tscn" type="PackedScene" id=5]
+[ext_resource path="res://worlds/FailMenu.tscn" type="PackedScene" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 26
@@ -69,3 +70,5 @@ position = Vector2( 61.9475, 61.9475 )
 shape = SubResource( 2 )
 
 [node name="EndWorldMenu" parent="." instance=ExtResource( 5 )]
+
+[node name="FailMenu" parent="." instance=ExtResource( 6 )]

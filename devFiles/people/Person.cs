@@ -9,6 +9,8 @@ public class Person : KinematicBody2D
 
 	[Export] public Color NormalColor;
 	[Export] public Color ShiningColor;
+	[Export] public Color InfectedColor;
+
 	public Thought Thought;
 	public Vector2 Velocity = Vector2.Zero;
 	private AnimationPlayer _anim;
@@ -31,6 +33,11 @@ public class Person : KinematicBody2D
 	public override void _PhysicsProcess(float delta)
 	{
 		MoveAndCollide(Velocity);
+	}
+
+	internal void Infect()
+	{
+		_sprite.Modulate = InfectedColor;
 	}
 
 	public override void _Ready()
@@ -77,11 +84,12 @@ public class Person : KinematicBody2D
 	{
 		if (!string.IsNullOrWhiteSpace(animationName))
 		{
-			_anim.Play(animationName);
+			// I had to use safe access here for some reason because at the beginning _anim was null
+			_anim?.Play(animationName);
 		}
 		else
 		{
-			_anim.Stop();
+			_anim?.Stop();
 		}
 	}
 
@@ -109,8 +117,6 @@ public class Person : KinematicBody2D
 	{
 		if (isShining)
 		{
-			GD.Print(NormalColor);
-			GD.Print(ShiningColor);
 			_tween.InterpolateProperty(_sprite, "modulate", NormalColor, ShiningColor,
 				1, Tween.TransitionType.Circ, Tween.EaseType.Out);
 		}

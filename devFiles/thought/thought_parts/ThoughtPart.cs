@@ -2,6 +2,7 @@ using Godot;
 using Godot.Collections;
 using RacingThoughts.misc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 public class ThoughtPart : Node2D
@@ -11,34 +12,42 @@ public class ThoughtPart : Node2D
 	[Export]
 	public string Part { get; set; }
 	[Export]
-	private Dictionary<string, string> ThoughtPartDictionary;
+	private Godot.Collections.Dictionary<string, string> ThoughtPartDictionary;
 
-	private Random _rand = RandomSingleton.GetInstance();
+	[Export]
+	private List<string> parts = new List<string>();
+
+	private AugmentedRandom _rand = RandomSingleton.GetInstance();
 	private TextureButton _button;
+	private Node _fontSymbol;
 
 	public override void _Ready()
 	{
-		Randomize();
 
 		_button = GetNode<TextureButton>("TextureButton");
 		_button.Connect("button_down", this, nameof(OnThoughtPartClicked));
+		_fontSymbol = GetNode("FontAwesome");
+
+		Randomize();
 	}
 
 	public void Randomize()
 	{
-		var keys = ThoughtPartDictionary.Keys.ToList();
-		var randomThoughtKey = keys[_rand.Next(keys.Count)];
+		var symbol = _rand.Random(parts);
+		Part = symbol;
 
-		Part = randomThoughtKey;
-
-		var button = GetNode<TextureButton>("TextureButton");
-		button.TextureNormal = GD.Load<Texture>(ThoughtPartDictionary[Part]);
+		SetFontSymbol(symbol);
 	}
 
 	public void OnThoughtPartClicked()
 	{
 		GD.Print($"{Part} clicked!");
 		EmitSignal(nameof(Clicked), this);
+	}
+
+	private void SetFontSymbol(string symbolName)
+	{
+		_fontSymbol.Set("icon_name", symbolName);
 	}
 
 }

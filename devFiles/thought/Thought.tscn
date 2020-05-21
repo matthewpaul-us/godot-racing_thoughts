@@ -5,7 +5,7 @@
 [ext_resource path="res://thought/thought_parts/ThoughtPart.tscn" type="PackedScene" id=3]
 [ext_resource path="res://thought/thought_shadow.png" type="Texture" id=4]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "hide"
 length = 0.25
 step = 0.05
@@ -34,8 +34,7 @@ tracks/1/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "show"
+[sub_resource type="Animation" id=2]
 length = 0.25
 step = 0.05
 tracks/0/type = "value"
@@ -64,8 +63,6 @@ tracks/1/keys = {
 }
 
 [node name="Thought" type="Node2D"]
-visible = false
-scale = Vector2( 1e-05, 2 )
 z_index = 5
 script = ExtResource( 2 )
 
@@ -81,7 +78,7 @@ texture = ExtResource( 1 )
 [node name="Timer" type="Timer" parent="."]
 
 [node name="Thought1" type="Node2D" parent="."]
-position = Vector2( -29.3302, -35.6153 )
+position = Vector2( -29.3302, -37.2801 )
 
 [node name="ThoughtPart" parent="Thought1" instance=ExtResource( 3 )]
 ThoughtPartDictionary = {
@@ -92,7 +89,7 @@ ThoughtPartDictionary = {
 }
 
 [node name="Thought2" type="Node2D" parent="."]
-position = Vector2( 15.3634, -35.6153 )
+position = Vector2( 15.3634, -37.2801 )
 
 [node name="ThoughtPart" parent="Thought2" instance=ExtResource( 3 )]
 ThoughtPartDictionary = {
@@ -103,7 +100,7 @@ ThoughtPartDictionary = {
 }
 
 [node name="Thought3" type="Node2D" parent="."]
-position = Vector2( 61.4539, -35.6153 )
+position = Vector2( 61.4539, -37.2801 )
 
 [node name="ThoughtPart" parent="Thought3" instance=ExtResource( 3 )]
 ThoughtPartDictionary = {
@@ -114,5 +111,5 @@ ThoughtPartDictionary = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/hide = SubResource( 2 )
-anims/show = SubResource( 1 )
+anims/hide = SubResource( 1 )
+anims/show = SubResource( 2 )

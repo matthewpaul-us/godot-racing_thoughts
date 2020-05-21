@@ -8,14 +8,16 @@ public class World : Node2D
 {
 	private Random _rand;
 
+	private Person _firstPerson;
 	private Person focusPerson;
 	private Person targetPerson;
-	private List<Person> people;
+	private List<Person> _people;
 	private Camera2D _camera;
 	private PersonSpawner _spawner;
 	private WorldGUI _gui;
 	private YSort _sort;
 	private TargetCamera _targetCam;
+	private Infection _infection;
 
 	private int _connectionsMade;
 
@@ -26,25 +28,26 @@ public class World : Node2D
 		_gui = GetNode<WorldGUI>("WorldGUI");
 		_sort = GetNode<YSort>("YSort");
 		_targetCam = GetNode<TargetCamera>("TargetCamera");
+		_infection = GetNode<Infection>("Infection");
 
 		_spawner.SpawnArea = GetNode<TextureRect>("SpawnerRect");
 		_spawner.SortLayer = _sort;
 
-		var seed = "Fair Time Grows";
-
-		_rand = RandomSingleton.GetInstance(seed);
+		_rand = RandomSingleton.GetInstance();
 
 		_spawner.Spawn();
 
-		people = _sort.GetChildren()
+		_people = _sort.GetChildren()
 			.Cast<Node>()
 			.Where(c => c is Person)
 			.Cast<Person>()
 			.ToList()
 			;
 
+		_infection.HealthyPeople.AddRange(_people);
+
 		Person minXPerson = null, maxXPerson = null;
-		foreach (var person in people)
+		foreach (var person in _people)
 		{
 			person.Connect(nameof(Person.ThoughtClicked), this, nameof(OnPersonThoughtClicked));
 
@@ -64,6 +67,8 @@ public class World : Node2D
 		// Have to defer to give the FSM a chance to catch up on first execution
 		CallDeferred(nameof(SetFocusPerson), minXPerson);
 		CallDeferred(nameof(SetTargetPerson), maxXPerson);
+
+		_firstPerson = minXPerson;
 
 		SetFocusPerson(minXPerson);
 		SetTargetPerson(maxXPerson);
@@ -112,6 +117,17 @@ public class World : Node2D
 		_gui.ShowEndWorldMenu(Globals.LevelLoader.Random.Seed, _connectionsMade);
 	}
 
+	public void PlayLose()
+	{
+		_infection.IsRunning = false;
+		_gui.ShowFailMenu();
+	}
+
+	public override void _PhysicsProcess(float delta)
+	{
+		_infection.InfectionTimerPercent = _gui.InfectionTimeLeftPercent;
+	}
+
 	public void SetFocusPerson(Person person)
 	{
 		// Make sure to unset the old
@@ -122,5 +138,18 @@ public class World : Node2D
 		_camera.Position = person.Position;
 
 		_targetCam.FocusPerson = person;
+	}
+	private void OnWorldGuiTimeRanOut()
+	{
+		_infection.StartInfection(_firstPerson);
+	}
+	private void OnInfectionInfected(Person infectedPerson)
+	{
+		if(infectedPerson == focusPerson)
+		{
+			GD.Print("You Failed!");
+			PlayLose();
+		}
+
 	}
 }

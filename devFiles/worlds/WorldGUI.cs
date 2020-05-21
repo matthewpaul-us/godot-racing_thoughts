@@ -4,12 +4,19 @@ using System.Runtime.CompilerServices;
 
 public class WorldGUI : CanvasLayer
 {
+	[Signal] public delegate void TimeRanOut();
+
+	public float TimeLeftPercent { get { return _totalTimeAvailable / _timeLeft; } }
+	public float InfectionTimeLeftPercent { get { return GetInfectionTimePercent(); } }
+
 	private Control _timeLeftControl;
 	private Label _timeLeftLabel;
 	private TextureProgress _progressBar;
 	private Area2D _hoverCheckArea;
 	private EndWorldMenu _endMenu;
+	private FailMenu _failMenu;
 
+	private bool _hasEmittedTimeRanOut = false;
 	private float _totalTimeAvailable;
 	private float _timeLeft;
 	private bool isTimerRunning;
@@ -21,6 +28,7 @@ public class WorldGUI : CanvasLayer
 		_timeLeftLabel = GetNode<Label>("TimeLeftControl/TimeLeftLabel");
 		_progressBar = GetNode<TextureProgress>("TimeLeftControl/ProgressBar");
 		_endMenu = GetNode<EndWorldMenu>("EndWorldMenu");
+		_failMenu = GetNode<FailMenu>("FailMenu");
 
 		_hoverCheckArea.Connect("mouse_entered", this, nameof(OnTimeLeftControlMouseEnter));
 		_hoverCheckArea.Connect("mouse_exited", this, nameof(OnTimeLeftControlMouseExit));
@@ -34,6 +42,12 @@ public class WorldGUI : CanvasLayer
 
 			_timeLeftLabel.Text = _timeLeft.ToString("0.00");
 			_progressBar.Value = _timeLeft;
+
+			if (!_hasEmittedTimeRanOut && _timeLeft <= 0)
+			{
+				_hasEmittedTimeRanOut = true;
+				EmitSignal(nameof(TimeRanOut));
+			}
 		}
 	}
 
@@ -62,6 +76,13 @@ public class WorldGUI : CanvasLayer
 		_endMenu.Show();
 	}
 
+	public void ShowFailMenu()
+	{
+		var time = _totalTimeAvailable - _timeLeft;
+
+		_failMenu.ShowFail(time);
+	}
+
 	public void OnTimeLeftControlMouseEnter()
 	{
 		var color = _timeLeftControl.Modulate;
@@ -74,5 +95,17 @@ public class WorldGUI : CanvasLayer
 		var color = _timeLeftControl.Modulate;
 		color.a = 1f;
 		_timeLeftControl.Modulate = color;
+	}
+
+	public float GetInfectionTimePercent()
+	{
+		if(_timeLeft >= 0)
+		{
+			return 0;
+		}
+		else
+		{
+			return -1 * _timeLeft / _totalTimeAvailable;
+		}
 	}
 }

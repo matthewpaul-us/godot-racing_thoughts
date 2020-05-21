@@ -23,6 +23,10 @@ config/icon="res://icon.png"
 
 Globals="*res://Globals.cs"
 
+[editor_plugins]
+
+enabled=PoolStringArray( "FontAwesome5" )
+
 [rendering]
 
 quality/driver/driver_name="GLES2"
