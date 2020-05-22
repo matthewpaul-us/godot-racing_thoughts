@@ -53,6 +53,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="cutscenes\LevelStartCutscene.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="LoadLevelMenu.cs" />
     <Compile Include="MainMenu.cs" />

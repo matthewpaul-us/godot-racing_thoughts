@@ -18,7 +18,7 @@ public class World : Node2D
 	private YSort _sort;
 	private TargetCamera _targetCam;
 	private Infection _infection;
-
+	private LevelStartCutscene _cutscene;
 	private int _connectionsMade;
 
 	public override void _Ready()
@@ -29,6 +29,7 @@ public class World : Node2D
 		_sort = GetNode<YSort>("YSort");
 		_targetCam = GetNode<TargetCamera>("TargetCamera");
 		_infection = GetNode<Infection>("Infection");
+		_cutscene = GetNode<LevelStartCutscene>("LevelStartCutscene");
 
 		_spawner.SpawnArea = GetNode<TextureRect>("SpawnerRect");
 		_spawner.SortLayer = _sort;
@@ -74,6 +75,14 @@ public class World : Node2D
 		SetTargetPerson(maxXPerson);
 		minXPerson.ShowThought();
 		_gui.StartTimer(30);
+
+		PlayStartCutscene();
+	}
+
+	private void PlayStartCutscene()
+	{
+		_cutscene.SetupCamera(GetNode<TextureRect>("Background").RectSize / 2f);
+		_cutscene.UsePeople(focusPerson, targetPerson);
 	}
 
 	private void SetTargetPerson(Person person)

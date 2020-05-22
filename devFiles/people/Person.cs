@@ -23,6 +23,11 @@ public class Person : KinematicBody2D
 	private Tween _tween;
 	[Signal] public delegate void ThoughtClicked(Person person, ThoughtPart part);
 
+	internal Texture GetTexture()
+	{
+		return _sprite.Texture;
+	}
+
 	public bool HasFocus { get { return _hasFocus; } set { SetFocus(value); } }
 	public bool IsTarget
 	{

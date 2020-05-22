@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://people/Person.tscn" type="PackedScene" id=1]
 [ext_resource path="res://worlds/World.cs" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://people/person_woman.png" type="Texture" id=7]
 [ext_resource path="res://worlds/world_background_plaza.png" type="Texture" id=8]
 [ext_resource path="res://people/Infection.tscn" type="PackedScene" id=9]
+[ext_resource path="res://cutscenes/LevelStartCutscene.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 20, 300 )
@@ -51,7 +52,6 @@ __meta__ = {
 }
 
 [node name="Camera" type="Camera2D" parent="."]
-current = true
 smoothing_enabled = true
 smoothing_speed = 10.0
 
@@ -225,5 +225,7 @@ shape = SubResource( 9 )
 [node name="Infection" parent="." instance=ExtResource( 9 )]
 MinInfectionTickSeconds = 0.05
 MaxInfectionTickSeconds = 6.0
+
+[node name="LevelStartCutscene" parent="." instance=ExtResource( 10 )]
 [connection signal="TimeRanOut" from="WorldGUI" to="." method="OnWorldGuiTimeRanOut"]
 [connection signal="Infected" from="Infection" to="." method="OnInfectionInfected"]
