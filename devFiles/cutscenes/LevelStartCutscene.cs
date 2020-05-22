@@ -3,6 +3,8 @@ using System;
 
 public class LevelStartCutscene : CanvasLayer
 {
+	[Signal] public delegate void CutsceneFinished();
+
 	private Camera2D _camera;
 	private Sprite _josephSprite;
 	private Sprite _otherSprite;
@@ -80,5 +82,11 @@ public class LevelStartCutscene : CanvasLayer
 	{
 		_camera.GlobalPosition = _focusPerson.GlobalPosition;
 		//= TransformCoordFromScreenToWorld(_focusPerson.GlobalPosition, _camera.Zoom);
+	}
+
+	private void OnAnimationPlayerAnimationFinished(String anim_name)
+	{
+		EmitSignal(nameof(CutsceneFinished));
+		CallDeferred("queue_free");
 	}
 }

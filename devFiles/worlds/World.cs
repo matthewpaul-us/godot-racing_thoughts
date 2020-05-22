@@ -73,8 +73,6 @@ public class World : Node2D
 
 		SetFocusPerson(minXPerson);
 		SetTargetPerson(maxXPerson);
-		minXPerson.ShowThought();
-		_gui.StartTimer(30);
 
 		PlayStartCutscene();
 	}
@@ -110,6 +108,7 @@ public class World : Node2D
 		}
 
 		SetFocusPerson(person);
+		person.PlayWhoosh();
 		person.SetShine(true);
 
 		_connectionsMade++;
@@ -156,9 +155,21 @@ public class World : Node2D
 	{
 		if(infectedPerson == focusPerson)
 		{
-			GD.Print("You Failed!");
 			PlayLose();
 		}
 
 	}
+
+	private void OnLevelStartCutsceneCutsceneFinished()
+	{
+		PlayStart();
+	}
+
+	private void PlayStart()
+	{
+		_camera.Current = true;
+		focusPerson.ShowThought();
+		_gui.StartTimer(30);
+	}
 }
+

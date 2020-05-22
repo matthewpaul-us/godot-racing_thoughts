@@ -229,3 +229,4 @@ MaxInfectionTickSeconds = 6.0
 [node name="LevelStartCutscene" parent="." instance=ExtResource( 10 )]
 [connection signal="TimeRanOut" from="WorldGUI" to="." method="OnWorldGuiTimeRanOut"]
 [connection signal="Infected" from="Infection" to="." method="OnInfectionInfected"]
+[connection signal="CutsceneFinished" from="LevelStartCutscene" to="." method="OnLevelStartCutsceneCutsceneFinished"]

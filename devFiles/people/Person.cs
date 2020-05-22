@@ -21,6 +21,7 @@ public class Person : KinematicBody2D
 	private Sprite _sprite;
 	private Timer _timer;
 	private Tween _tween;
+	private AudioStreamPlayer2D _whoosh;
 	[Signal] public delegate void ThoughtClicked(Person person, ThoughtPart part);
 
 	internal Texture GetTexture()
@@ -56,6 +57,7 @@ public class Person : KinematicBody2D
 		_anim = GetNode<AnimationPlayer>("AnimationPlayer");
 		_brain = GetNode<PersonStateMachine>("Brain");
 		_tween = GetNode<Tween>("Tween");
+		_whoosh = GetNode<AudioStreamPlayer2D>("WhooshSound");
 
 		_timer.Connect("timeout", this, nameof(OnTimerTimeout));
 		_timer.WaitTime = (float)(_rand.NextDouble() * 2.0 + 2.0);
@@ -132,6 +134,11 @@ public class Person : KinematicBody2D
 		}
 
 		_tween.Start();
+	}
+
+	public void PlayWhoosh()
+	{
+		_whoosh.Play();
 	}
 
 	public void SetTarget(bool isTarget)

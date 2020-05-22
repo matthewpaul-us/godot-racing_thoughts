@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://fonts/JosefinSans-Light.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://worlds/time_progress_over.png" type="Texture" id=2]
@@ -15,6 +15,23 @@ font_data = ExtResource( 1 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 95.0858, 75.6821 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "pulse"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("TimeLeftControl/TimeLeftLabel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 2, 0.5, 1 ),
+"update": 0,
+"values": [ Color( 0.815686, 0, 0, 1 ), Color( 0.815686, 0, 0, 0 ), Color( 0.815686, 0, 0, 1 ) ]
+}
 
 [node name="WorldGUI" type="CanvasLayer"]
 script = ExtResource( 3 )
@@ -51,12 +68,13 @@ __meta__ = {
 }
 
 [node name="TimeLeftLabel" type="Label" parent="TimeLeftControl"]
+modulate = Color( 0.964706, 0.960784, 0.964706, 1 )
 margin_left = 19.2037
 margin_top = 45.1722
 margin_right = 104.204
 margin_bottom = 79.1722
 custom_fonts/font = SubResource( 1 )
-text = "77.77"
+text = "Time"
 align = 1
 valign = 1
 __meta__ = {
@@ -72,3 +90,6 @@ shape = SubResource( 2 )
 [node name="EndWorldMenu" parent="." instance=ExtResource( 5 )]
 
 [node name="FailMenu" parent="." instance=ExtResource( 6 )]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/pulse = SubResource( 3 )

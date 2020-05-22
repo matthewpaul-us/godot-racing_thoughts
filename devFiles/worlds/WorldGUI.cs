@@ -15,6 +15,7 @@ public class WorldGUI : CanvasLayer
 	private Area2D _hoverCheckArea;
 	private EndWorldMenu _endMenu;
 	private FailMenu _failMenu;
+	private AnimationPlayer _anim;
 
 	private bool _hasEmittedTimeRanOut = false;
 	private float _totalTimeAvailable;
@@ -29,6 +30,7 @@ public class WorldGUI : CanvasLayer
 		_progressBar = GetNode<TextureProgress>("TimeLeftControl/ProgressBar");
 		_endMenu = GetNode<EndWorldMenu>("EndWorldMenu");
 		_failMenu = GetNode<FailMenu>("FailMenu");
+		_anim = GetNode<AnimationPlayer>("AnimationPlayer");
 
 		_hoverCheckArea.Connect("mouse_entered", this, nameof(OnTimeLeftControlMouseEnter));
 		_hoverCheckArea.Connect("mouse_exited", this, nameof(OnTimeLeftControlMouseExit));
@@ -40,14 +42,34 @@ public class WorldGUI : CanvasLayer
 		{
 			_timeLeft -= delta;
 
-			_timeLeftLabel.Text = _timeLeft.ToString("0.00");
+			UpdateTimeLeftLabel(_timeLeft);
+
 			_progressBar.Value = _timeLeft;
 
 			if (!_hasEmittedTimeRanOut && _timeLeft <= 0)
 			{
 				_hasEmittedTimeRanOut = true;
 				EmitSignal(nameof(TimeRanOut));
+
+				BeginTimeLeftLabelPulse();
 			}
+		}
+	}
+
+	private void BeginTimeLeftLabelPulse()
+	{
+		_anim.Play("pulse");
+	}
+
+	private void UpdateTimeLeftLabel(float value)
+	{
+		if(value > 0)
+		{
+			_timeLeftLabel.Text = _timeLeft.ToString("0.00");
+		}
+		else
+		{
+			_timeLeftLabel.Text = "0.00";
 		}
 	}
 

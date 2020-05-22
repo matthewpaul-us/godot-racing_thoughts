@@ -40,8 +40,6 @@ public class Infection : Node
 			MinInfectionTickSeconds,
 			MaxInfectionTickSeconds);
 
-		GD.Print(timeTillInfectionTickNeeded);
-
 		if(_timeSinceLastInfection > timeTillInfectionTickNeeded)
 		{
 			InfectTick();
