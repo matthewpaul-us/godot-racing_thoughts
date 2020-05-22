@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 public class LevelLoader : Node2D
 {
+	[Signal] public delegate void SceneChangeFinished();
 	public Node LoadedScene { get; set; }
 	public string LoadedScenePath { get; set; }
 	public AugmentedRandom Random { get; set; }
@@ -54,6 +55,8 @@ public class LevelLoader : Node2D
 		LoadedScenePath = resourcePath;
 
 		await RaiseCurtain();
+
+		EmitSignal(nameof(SceneChangeFinished));
 	}
 
 	public void LoadMenu(string resourcePath)
