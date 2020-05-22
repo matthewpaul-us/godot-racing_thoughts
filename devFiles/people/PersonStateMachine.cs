@@ -23,6 +23,7 @@ public class PersonStateMachine : AbstractStateMachine<Person>
 		AddState("picked");
 
 		CallDeferred("SetState", "wait");
+		SetPhysicsProcess(false);
 	}
 	protected override void EnterState(string newState, string oldState)
 	{

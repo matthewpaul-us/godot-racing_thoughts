@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://GeosansLight.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://fonts/JosefinSans-Light.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://worlds/time_progress_over.png" type="Texture" id=2]
 [ext_resource path="res://worlds/WorldGUI.cs" type="Script" id=3]
 [ext_resource path="res://worlds/time_progress_fill.png" type="Texture" id=4]

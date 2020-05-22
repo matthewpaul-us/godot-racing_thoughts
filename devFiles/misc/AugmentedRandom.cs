@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -51,6 +52,20 @@ namespace RacingThoughts.misc
             };
 
             return $"{Random(firstWords)} {Random(secondWords)}";
+        }
+
+        // https://stackoverflow.com/questions/273313/randomize-a-listt
+        public void Shuffle<T>(IList<T> list)
+        {
+            var items = list.Count();
+            while (items > 1)
+            {
+                items--;
+                var randomIndex = Next(items + 1);
+                T value = list[randomIndex];
+                list[randomIndex] = list[items];
+                list[items] = value;
+            }
         }
     }
 }

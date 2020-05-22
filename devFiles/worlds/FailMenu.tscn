@@ -35,6 +35,8 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+Names = [ "James", "John", "Robert", "Michael", "William", "David", "Richard", "Thomas", "Charles", "Chris", "Mary", "Patricia", "Jennifer", "Linda", "Barara", "Susan", "Jessica", "Sarah", "Karen", "Nancy" ]
+Messages = [ "Wow, asleep again", "Is he okay?", "BUSTED!!1!", "I cant believe it", "Youre in trouble now", "The funs over now" ]
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 margin_left = 600.0
