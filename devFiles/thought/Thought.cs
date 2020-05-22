@@ -65,6 +65,15 @@ public class Thought : Node2D
 		_isFrozen = isFrozen;
 	}
 
+	internal void SetThoughtParts(List<string> thoughtParts)
+	{
+		foreach (var part in parts)
+		{
+			part.parts = thoughtParts;
+			part.Randomize();
+		}
+	}
+
 	public void SetThoughtVisible(bool isVisible, float durationSeconds)
 	{
 		if (isVisible)

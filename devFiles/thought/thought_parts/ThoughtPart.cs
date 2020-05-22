@@ -15,7 +15,7 @@ public class ThoughtPart : Node2D
 	private Godot.Collections.Dictionary<string, string> ThoughtPartDictionary;
 
 	[Export]
-	private List<string> parts = new List<string>();
+	public List<string> parts = new List<string>();
 
 	private AugmentedRandom _rand = RandomSingleton.GetInstance();
 	private TextureButton _button;

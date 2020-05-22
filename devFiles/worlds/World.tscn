@@ -224,7 +224,8 @@ shape = SubResource( 9 )
 
 [node name="Infection" parent="." instance=ExtResource( 9 )]
 MinInfectionTickSeconds = 0.05
-MaxInfectionTickSeconds = 6.0
+MaxInfectionTickSeconds = 3.0
+InfectedThoughts = [ "burn", "diagnoses", "dizzy", "fist-raised", "grimace", "head-side-virus", "lungs-virus", "tired", "virus" ]
 
 [node name="LevelStartCutscene" parent="." instance=ExtResource( 10 )]
 [connection signal="TimeRanOut" from="WorldGUI" to="." method="OnWorldGuiTimeRanOut"]

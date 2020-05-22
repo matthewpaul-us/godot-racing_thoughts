@@ -41,9 +41,10 @@ public class Person : KinematicBody2D
 		MoveAndCollide(Velocity);
 	}
 
-	internal void Infect()
+	internal void Infect(List<string> parts)
 	{
 		_sprite.Modulate = InfectedColor;
+		Thought.SetThoughtParts(parts);
 	}
 
 	public override void _Ready()
