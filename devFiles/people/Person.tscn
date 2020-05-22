@@ -66,4 +66,9 @@ __meta__ = {
 anims/walk = SubResource( 2 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+physics_process_parent = true
 [connection signal="mouse_entered" from="YSort/TextureButton" to="." method="OnPersonMouseEntered"]
+[connection signal="screen_entered" from="VisibilityEnabler2D" to="." method="OnVisibilityEnabler2DScreenEntered"]
+[connection signal="screen_exited" from="VisibilityEnabler2D" to="." method="OnVisibilityEnabler2DScreenExited"]

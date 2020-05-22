@@ -166,4 +166,16 @@ public class Person : KinematicBody2D
 		Thought.ZIndex += 10;
 		FocusIcon.Show();
 	}
+	private void OnVisibilityEnabler2DScreenEntered()
+	{
+		_brain.SetPhysicsProcess(true);
+	}
+
+
+	private void OnVisibilityEnabler2DScreenExited()
+	{
+		_brain.SetPhysicsProcess(false);
+	}
+
+
 }

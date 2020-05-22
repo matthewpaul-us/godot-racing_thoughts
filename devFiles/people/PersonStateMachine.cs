@@ -23,6 +23,8 @@ public class PersonStateMachine : AbstractStateMachine<Person>
 		AddState("picked");
 
 		CallDeferred("SetState", "wait");
+
+		// Set this to sleep until we enter the screen
 		SetPhysicsProcess(false);
 	}
 	protected override void EnterState(string newState, string oldState)

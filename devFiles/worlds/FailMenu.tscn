@@ -27,7 +27,6 @@ size = 32
 font_data = ExtResource( 3 )
 
 [node name="FailMenu" type="TextureRect"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 1 )
@@ -52,6 +51,7 @@ bbcode_text = "[i]Inactive for 77.77 seconds[/i]
 [b]Mary[/b]: He fell asleep."
 text = "Inactive for 77.77 seconds
 Mary: He fell asleep."
+scroll_following = true
 
 [node name="MainMenuButton" type="Button" parent="."]
 margin_left = 290.0
