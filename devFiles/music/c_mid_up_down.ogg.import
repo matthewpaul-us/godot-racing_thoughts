@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/c_mid_up_down.ogg-5f2b52d23a9315e9fe2f4453f7a815e5.oggstr"
+
+[deps]
+
+source_file="res://music/c_mid_up_down.ogg"
+dest_files=[ "res://.import/c_mid_up_down.ogg-5f2b52d23a9315e9fe2f4453f7a815e5.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

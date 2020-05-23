@@ -59,6 +59,8 @@
     <Compile Include="MainMenu.cs" />
     <Compile Include="main\LevelLoader.cs" />
     <Compile Include="misc\AugmentedRandom.cs" />
+    <Compile Include="misc\MusicKey.cs" />
+    <Compile Include="misc\MusicMan.cs" />
     <Compile Include="misc\RandomSingleton.cs" />
     <Compile Include="misc\AbstractStateMachine.cs" />
     <Compile Include="people\Infection.cs" />

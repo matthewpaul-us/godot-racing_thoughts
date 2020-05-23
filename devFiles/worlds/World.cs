@@ -19,6 +19,7 @@ public class World : Node2D
 	private TargetCamera _targetCam;
 	private Infection _infection;
 	private LevelStartCutscene _cutscene;
+	private MusicMan _music;
 	private int _connectionsMade;
 
 	public override void _Ready()
@@ -30,6 +31,7 @@ public class World : Node2D
 		_targetCam = GetNode<TargetCamera>("TargetCamera");
 		_infection = GetNode<Infection>("Infection");
 		_cutscene = GetNode<LevelStartCutscene>("LevelStartCutscene");
+		_music = GetNode<MusicMan>("MusicMan");
 
 		_spawner.SpawnArea = GetNode<TextureRect>("SpawnerRect");
 		_spawner.SortLayer = _sort;
@@ -114,6 +116,8 @@ public class World : Node2D
 		person.PlayWhoosh();
 		person.SetShine(true);
 
+		_music.PlayConnection();
+
 		_connectionsMade++;
 
 		if(person == targetPerson)
@@ -132,6 +136,7 @@ public class World : Node2D
 	{
 		_infection.IsRunning = false;
 		_gui.ShowFailMenu();
+		_music.SetIsPlaying(false);
 	}
 
 	public override void _PhysicsProcess(float delta)
@@ -169,6 +174,7 @@ public class World : Node2D
 	private void OnLevelStartCutsceneCutsceneFinished()
 	{
 		PlayStart();
+		_music.SetIsPlaying(true);
 	}
 
 	private void PlayStart()

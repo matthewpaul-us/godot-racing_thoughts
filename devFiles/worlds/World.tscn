@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://people/Person.tscn" type="PackedScene" id=1]
 [ext_resource path="res://worlds/World.cs" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://worlds/world_background_plaza.png" type="Texture" id=8]
 [ext_resource path="res://people/Infection.tscn" type="PackedScene" id=9]
 [ext_resource path="res://cutscenes/LevelStartCutscene.tscn" type="PackedScene" id=10]
+[ext_resource path="res://misc/MusicMan.cs" type="Script" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 20, 300 )
@@ -229,5 +230,34 @@ MaxInfectionTickSeconds = 1.0
 InfectedThoughts = [ "burn", "diagnoses", "dizzy", "fist-raised", "grimace", "head-side-virus", "lungs-virus", "tired", "virus" ]
 
 [node name="LevelStartCutscene" parent="." instance=ExtResource( 10 )]
+
+[node name="MusicMan" type="Node" parent="."]
+script = ExtResource( 11 )
+CAmbience = [ "res://music/c_long.ogg", "res://music/c_mid_up_down.ogg", "res://music/c_interest.ogg", "res://music/c_connection_1.ogg", "res://music/c_connection_2.ogg", "res://music/c_connection_3.ogg", "res://music/c_connection_4.ogg" ]
+EAmbience = [ "res://music/e_long.ogg", "res://music/e_mid_up_down.ogg", "res://music/e_interest.ogg", "res://music/e_connection_1.ogg", "res://music/e_connection_2.ogg", "res://music/e_connection_3.ogg", "res://music/e_connection_4.ogg" ]
+GAmbience = [ "res://music/g_interest.ogg", "res://music/g_long.ogg", "res://music/g_mid_up_down.ogg", "res://music/g_connection_1.ogg", "res://music/g_connection_2.ogg", "res://music/g_connection_3.ogg", "res://music/g_connection_4.ogg" ]
+AAmbience = [ "res://music/a_interest.ogg", "res://music/a_long.ogg", "res://music/a_mid_up_down.ogg", "res://music/a_connection_2.ogg", "res://music/a_connection_1.ogg", "res://music/a_connection_3.ogg", "res://music/a_connection_4.ogg" ]
+ChordProgression = [ "C", "G", "E", "A" ]
+
+[node name="AmbienceTrack" type="AudioStreamPlayer" parent="MusicMan"]
+bus = "Music"
+
+[node name="AmbienceTrack2" type="AudioStreamPlayer" parent="MusicMan"]
+bus = "Music"
+
+[node name="ConnectionTrack" type="AudioStreamPlayer" parent="MusicMan"]
+bus = "Music"
+
+[node name="ConnectionTrack2" type="AudioStreamPlayer" parent="MusicMan"]
+bus = "Music"
+
+[node name="ConnectionTrack3" type="AudioStreamPlayer" parent="MusicMan"]
+bus = "Music"
+
+[node name="Timer" type="Timer" parent="MusicMan"]
+wait_time = 4.0
+
+[node name="Tween" type="Tween" parent="MusicMan"]
 [connection signal="TimeRanOut" from="WorldGUI" to="." method="OnWorldGuiTimeRanOut"]
 [connection signal="CutsceneFinished" from="LevelStartCutscene" to="." method="OnLevelStartCutsceneCutsceneFinished"]
+[connection signal="timeout" from="MusicMan/Timer" to="MusicMan" method="OnTimerTimeout"]
