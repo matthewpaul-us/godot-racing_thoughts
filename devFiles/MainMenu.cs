@@ -12,7 +12,7 @@ public class MainMenu : CanvasLayer
 
 	public void OnPlayButtonPressed()
 	{
-		_loader.LoadLevel("res://worlds/World.tscn", "Testing Joseph");
+		_loader.LoadLevel("res://worlds/World.tscn");
 	}
 	public void OnLevelButtonPressed()
 	{

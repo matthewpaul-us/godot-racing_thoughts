@@ -98,6 +98,7 @@ PersonTextures = [ ExtResource( 6 ), ExtResource( 7 ) ]
 NumberToSpawn = 400
 PersonColor = Color( 0.627451, 0.627451, 0.627451, 1 )
 PersonShineColor = Color( 0.988235, 0.639216, 0.0666667, 1 )
+PersonSelectedColor = Color( 0.964706, 0.960784, 0.964706, 1 )
 PersonInfectedColor = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
 ColorVariation = 0.3
 
@@ -223,11 +224,10 @@ position = Vector2( 2048.95, 1197.26 )
 shape = SubResource( 9 )
 
 [node name="Infection" parent="." instance=ExtResource( 9 )]
-MinInfectionTickSeconds = 0.05
-MaxInfectionTickSeconds = 3.0
+MinInfectionTickSeconds = 0.025
+MaxInfectionTickSeconds = 1.0
 InfectedThoughts = [ "burn", "diagnoses", "dizzy", "fist-raised", "grimace", "head-side-virus", "lungs-virus", "tired", "virus" ]
 
 [node name="LevelStartCutscene" parent="." instance=ExtResource( 10 )]
 [connection signal="TimeRanOut" from="WorldGUI" to="." method="OnWorldGuiTimeRanOut"]
-[connection signal="Infected" from="Infection" to="." method="OnInfectionInfected"]
 [connection signal="CutsceneFinished" from="LevelStartCutscene" to="." method="OnLevelStartCutsceneCutsceneFinished"]

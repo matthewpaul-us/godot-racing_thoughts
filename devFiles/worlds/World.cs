@@ -63,6 +63,8 @@ public class World : Node2D
 			{
 				maxXPerson = person;
 			}
+
+			person.Connect(nameof(Person.Infected), this, nameof(OnInfectionInfected));
 		}
 
 		// Have to defer to give the FSM a chance to catch up on first execution
@@ -90,6 +92,7 @@ public class World : Node2D
 		person.IsTarget = true;
 
 		_targetCam.TargetPerson = person;
+		person.SetShine(true);
 	}
 
 	public void OnPersonThoughtClicked(Person person, ThoughtPart part)
@@ -140,9 +143,12 @@ public class World : Node2D
 	{
 		// Make sure to unset the old
 		focusPerson?.SetFocus(false);
+		focusPerson?.SetShine(false);
 
 		focusPerson = person;
 		person.SetFocus(true);
+		person.SetShine(true);
+
 		_camera.Position = person.Position;
 
 		_targetCam.FocusPerson = person;

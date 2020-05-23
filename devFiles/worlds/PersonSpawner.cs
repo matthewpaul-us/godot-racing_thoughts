@@ -13,6 +13,7 @@ public class PersonSpawner : Node
 
 	[Export] public Color PersonColor;
 	[Export] public Color PersonShineColor;
+	[Export] public Color PersonSelectedColor;
 	[Export] public Color PersonInfectedColor;
 	[Export(PropertyHint.Range, "0,1")] public float ColorVariation;
 
@@ -46,6 +47,7 @@ public class PersonSpawner : Node
 			newPerson.NormalColor = normalColor;
 			newPerson.ShiningColor = shiningColor;
 			newPerson.InfectedColor = infectedColor;
+			newPerson.SelectedColor = PersonSelectedColor;
 
 			newPerson.SetTexture(texture);
 		}

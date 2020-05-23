@@ -5,11 +5,14 @@ using System.Collections.Generic;
 
 public class Person : KinematicBody2D
 {
+	[Signal] public delegate void Infected(Person person);
+
 	public Sprite FocusIcon;
 
 	[Export] public Color NormalColor;
 	[Export] public Color ShiningColor;
 	[Export] public Color InfectedColor;
+	[Export] public Color SelectedColor;
 
 	public Thought Thought;
 	public Vector2 Velocity = Vector2.Zero;
@@ -41,10 +44,27 @@ public class Person : KinematicBody2D
 		MoveAndCollide(Velocity);
 	}
 
+	private List<string> InfectedThoughts;
 	internal void Infect(List<string> parts)
 	{
+		InfectedThoughts = parts;
+		// Have to ensure infected can happen off-screen
+		if(_brain.IsPhysicsProcessing())
+		{
+			_brain.SetState("get_infected");
+		}
+		else
+		{
+			_sprite.Modulate = InfectedColor;
+			Thought.SetThoughtParts(InfectedThoughts);
+		}
+	}
+
+	private void InfectInternal()
+	{
 		_sprite.Modulate = InfectedColor;
-		Thought.SetThoughtParts(parts);
+		Thought.SetThoughtParts(InfectedThoughts);
+		EmitSignal(nameof(Infected), this);
 	}
 
 	public override void _Ready()
@@ -107,14 +127,12 @@ public class Person : KinematicBody2D
 		{
 			Thought.SetFreeze(true);
 			Thought.ZIndex += 10;
-			FocusIcon.Show();
 			_brain.SetState("picked");
 		}
 		else
 		{
 			Thought.SetFreeze(false);
 			Thought.ZIndex -= 10;
-			FocusIcon.Hide();
 			_brain.SetState("wait");
 		}
 
@@ -125,12 +143,12 @@ public class Person : KinematicBody2D
 	{
 		if (isShining)
 		{
-			_tween.InterpolateProperty(_sprite, "modulate", NormalColor, ShiningColor,
+			_tween.InterpolateProperty(_sprite, "modulate", NormalColor, SelectedColor,
 				1, Tween.TransitionType.Circ, Tween.EaseType.Out);
 		}
 		else
 		{
-			_tween.InterpolateProperty(_sprite, "modulate", ShiningColor, NormalColor,
+			_tween.InterpolateProperty(_sprite, "modulate", SelectedColor, ShiningColor,
 				0.5f, Tween.TransitionType.Circ, Tween.EaseType.In);
 		}
 
@@ -173,11 +191,11 @@ public class Person : KinematicBody2D
 	private void SetIsTarget(bool value)
 	{
 		_isTarget = value;
-		FocusIcon.Visible = _isTarget;
 
 		Thought.SetFreeze(true);
 		Thought.ZIndex += 10;
-		FocusIcon.Show();
+
+		SetShine(true);
 	}
 	private void OnVisibilityEnabler2DScreenEntered()
 	{
@@ -190,5 +208,8 @@ public class Person : KinematicBody2D
 		_brain.SetPhysicsProcess(false);
 	}
 
-
+	public bool IsPlayingAnimation()
+	{
+		return _anim.IsPlaying();
+	}
 }

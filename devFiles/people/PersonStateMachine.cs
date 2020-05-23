@@ -3,6 +3,7 @@ using RacingThoughts.misc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,6 +22,7 @@ public class PersonStateMachine : AbstractStateMachine<Person>
 		AddState("wait");
 		AddState("walk");
 		AddState("picked");
+		AddState("get_infected");
 
 		CallDeferred("SetState", "wait");
 
@@ -43,7 +45,13 @@ public class PersonStateMachine : AbstractStateMachine<Person>
 				_parent.Velocity = Vector2.Zero;
 				break;
 			case "picked":
-				_parent.PlayAnimation(null);
+				if (oldState != "get_infected")
+				{ 
+                    _parent.PlayAnimation(null);
+				}
+				break;
+			case "get_infected":
+				_parent.PlayAnimation("infect");
 				break;
 			default:
 				break;
@@ -91,6 +99,12 @@ public class PersonStateMachine : AbstractStateMachine<Person>
 					return _previousState;
 				}
 				break;
+			case "get_infected":
+				if (!_parent.IsPlayingAnimation())
+                {
+					return "wait";
+				}
+				break;
 
 			default:
 				break;
@@ -98,4 +112,5 @@ public class PersonStateMachine : AbstractStateMachine<Person>
 
 		return _state;
 	}
+
 }
