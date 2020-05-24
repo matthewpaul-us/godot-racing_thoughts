@@ -22,6 +22,9 @@ namespace RacingThoughts.misc
 
         public T Random<T>(IList<T> items)
         {
+            if (items.Count == 0)
+                throw new Exception("List contains no items!");
+
             var index = Next(items.Count);
 
             return items[index];

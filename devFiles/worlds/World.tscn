@@ -233,10 +233,10 @@ InfectedThoughts = [ "burn", "diagnoses", "dizzy", "fist-raised", "grimace", "he
 
 [node name="MusicMan" type="Node" parent="."]
 script = ExtResource( 11 )
-CAmbience = [ "res://music/c_long.ogg", "res://music/c_mid_up_down.ogg", "res://music/c_interest.ogg", "res://music/c_connection_1.ogg", "res://music/c_connection_2.ogg", "res://music/c_connection_3.ogg", "res://music/c_connection_4.ogg" ]
-EAmbience = [ "res://music/e_long.ogg", "res://music/e_mid_up_down.ogg", "res://music/e_interest.ogg", "res://music/e_connection_1.ogg", "res://music/e_connection_2.ogg", "res://music/e_connection_3.ogg", "res://music/e_connection_4.ogg" ]
-GAmbience = [ "res://music/g_interest.ogg", "res://music/g_long.ogg", "res://music/g_mid_up_down.ogg", "res://music/g_connection_1.ogg", "res://music/g_connection_2.ogg", "res://music/g_connection_3.ogg", "res://music/g_connection_4.ogg" ]
-AAmbience = [ "res://music/a_interest.ogg", "res://music/a_long.ogg", "res://music/a_mid_up_down.ogg", "res://music/a_connection_2.ogg", "res://music/a_connection_1.ogg", "res://music/a_connection_3.ogg", "res://music/a_connection_4.ogg" ]
+CAmbience = [ "res://music/c_long.ogg", "res://music/c_mid_up_down.ogg", "res://music/c_interest.ogg", "res://music/c_connection_1.ogg", "res://music/c_connection_2.ogg", "res://music/c_connection_3.ogg", "res://music/c_connection_4.ogg", "res://music/c_failure.ogg", "res://music/c_success.ogg" ]
+EAmbience = [ "res://music/e_long.ogg", "res://music/e_mid_up_down.ogg", "res://music/e_interest.ogg", "res://music/e_connection_1.ogg", "res://music/e_connection_2.ogg", "res://music/e_connection_3.ogg", "res://music/e_connection_4.ogg", "res://music/e_failure.ogg" ]
+GAmbience = [ "res://music/g_interest.ogg", "res://music/g_long.ogg", "res://music/g_mid_up_down.ogg", "res://music/g_connection_1.ogg", "res://music/g_connection_2.ogg", "res://music/g_connection_3.ogg", "res://music/g_connection_4.ogg", "res://music/g_failure.ogg", "res://music/g_success.ogg" ]
+AAmbience = [ "res://music/a_interest.ogg", "res://music/a_long.ogg", "res://music/a_mid_up_down.ogg", "res://music/a_connection_2.ogg", "res://music/a_connection_1.ogg", "res://music/a_connection_3.ogg", "res://music/a_connection_4.ogg", "res://music/a_failure.ogg" ]
 ChordProgression = [ "C", "G", "E", "A" ]
 
 [node name="AmbienceTrack" type="AudioStreamPlayer" parent="MusicMan"]
@@ -258,6 +258,9 @@ bus = "Music"
 wait_time = 4.0
 
 [node name="Tween" type="Tween" parent="MusicMan"]
+
+[node name="JingleTrack" type="AudioStreamPlayer" parent="MusicMan"]
+bus = "Stingers"
 
 [node name="StartingSpawn" type="Node" parent="."]
 

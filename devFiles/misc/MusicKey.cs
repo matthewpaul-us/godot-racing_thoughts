@@ -10,6 +10,8 @@ public class MusicKey
     public List<AudioStream> UpDownFragments;
     public List<AudioStream> InterestFragments;
     public List<AudioStream> ConnectionFragments;
+    public List<AudioStream> SuccessFragments;
+    public List<AudioStream> FailureFragments;
 
     public string Key;
 
@@ -75,5 +77,25 @@ public class MusicKey
     public void LoadConnectionFragments(IEnumerable<string> fragments)
     {
         ConnectionFragments = LoadFragments(fragments);
+    }
+
+    internal void LoadSuccessFragments(IEnumerable<string> fragments)
+    {
+        SuccessFragments = LoadFragments(fragments);
+    }
+
+    internal void LoadFailureFragments(IEnumerable<string> fragments)
+    {
+        FailureFragments = LoadFragments(fragments);
+    }
+
+    public AudioStream GetSuccess()
+    {
+        return _rand.Random(SuccessFragments);
+    }
+
+    internal AudioStream GetFailure()
+    {
+        return _rand.Random(FailureFragments);
     }
 }

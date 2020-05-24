@@ -123,12 +123,15 @@ public class World : Node2D
 	{
 		_gui.StopTimer();
 		_gui.ShowEndWorldMenu(Globals.LevelLoader.Random.Seed, _connectionsMade);
+		_music.PlaySuccess();
+		_music.SetIsPlaying(false);
 	}
 
 	public void PlayLose()
 	{
 		_infection.IsRunning = false;
 		_gui.ShowFailMenu();
+		_music.PlayFailure();
 		_music.SetIsPlaying(false);
 	}
 

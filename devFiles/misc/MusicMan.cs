@@ -1,7 +1,9 @@
 using Godot;
+using RacingThoughts.misc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +20,7 @@ class MusicMan : Node
 	public AudioStreamPlayer ConnectionTrack1;
 	public AudioStreamPlayer ConnectionTrack2;
 	public AudioStreamPlayer ConnectionTrack3;
+	public AudioStreamPlayer StingerTrack;
 
 	private Timer _timer;
 	private Tween _tween;
@@ -26,12 +29,15 @@ class MusicMan : Node
 	private MusicKey GKey;
 	private MusicKey AKey;
 
+	public MusicKey[] Keys { get; private set; }
+
 	private int _progressionIndex;
 	private int _ambientTrackIndex;
 	private int _connectionTrackIndex;
 	private AudioStreamPlayer[] _connectionTracks;
 
 	private bool _isPlaying;
+	private AugmentedRandom _rand;
 
 	public override void _Ready()
 	{
@@ -40,6 +46,7 @@ class MusicMan : Node
 		ConnectionTrack1 = GetNode<AudioStreamPlayer>("ConnectionTrack");
 		ConnectionTrack2 = GetNode<AudioStreamPlayer>("ConnectionTrack2");
 		ConnectionTrack3 = GetNode<AudioStreamPlayer>("ConnectionTrack3");
+		StingerTrack = GetNode<AudioStreamPlayer>("JingleTrack");
 		_timer = GetNode<Timer>("Timer");
 		_tween = GetNode<Tween>("Tween");
 
@@ -48,11 +55,14 @@ class MusicMan : Node
 		_ambientTrackIndex = 0;
 		_progressionIndex = 0;
 		_connectionTrackIndex = 0;
+		_rand = RandomSingleton.GetInstance();
 
 		CKey = ProcessAmbience("C", CAmbience);
 		EKey = ProcessAmbience("E", EAmbience);
 		GKey = ProcessAmbience("G", GAmbience);
 		AKey = ProcessAmbience("A", AAmbience);
+
+		Keys = new[] { CKey, EKey, GKey, AKey };
 	}
 
 	public void SetIsPlaying(bool isPlaying)
@@ -110,10 +120,19 @@ class MusicMan : Node
 			.Where(p => p.Contains("connection"))
 			;
 
+		var successFragments = fragments
+			.Where(p => p.Contains("success"));
+            ;
+
+		var failureFragments = fragments
+			.Where(p => p.Contains("failure"));
+
 		musicKey.LoadLongFragments(longFragments);
 		musicKey.LoadUpDownFragments(upDownFragments);
 		musicKey.LoadInterestFragments(interestFragments);
 		musicKey.LoadConnectionFragments(connectionFragments);
+		musicKey.LoadSuccessFragments(successFragments);
+		musicKey.LoadFailureFragments(failureFragments);
 
 		return musicKey;
 	}
@@ -164,5 +183,37 @@ class MusicMan : Node
 
 
 		_connectionTrackIndex = (_connectionTrackIndex + 1) % _connectionTracks.Count();
+	}
+
+	public void PlaySuccess()
+	{
+		GD.Print("Playing Success");
+		MusicKey currentKey = GetCurrentKey();
+
+		if(!currentKey.SuccessFragments.Any())
+		{
+			currentKey = _rand.Random(Keys.Where(k => k.SuccessFragments.Any()).ToList());
+		}
+
+        StingerTrack.Stream = currentKey.GetSuccess();
+		StingerTrack.Play();
+	}
+
+	public void PlayFailure()
+	{
+		GD.Print("Playing Failure");
+		MusicKey currentKey = GetCurrentKey();
+
+		GD.Print($"Failures : {currentKey.FailureFragments.Count()}");
+
+		if(!currentKey.FailureFragments.Any())
+		{
+			var keysWithFragment = Keys.Where(k => k.FailureFragments.Any()).ToList();
+			GD.Print($"Keys with Failures : {keysWithFragment.Count()}");
+			currentKey = _rand.Random(keysWithFragment);
+		}
+
+		StingerTrack.Stream = currentKey.GetFailure();
+		StingerTrack.Play();
 	}
 }

@@ -44,8 +44,6 @@ public abstract class AbstractStateMachine<T>: Node where T : Node
 
     public void SetState(string newState)
     {
-        GD.Print($"{_parent.Name}: Set {newState}");
-
         if(!_states.Contains(newState))
         {
             GD.PrintErr($"State machine doesn't contain state {newState}");

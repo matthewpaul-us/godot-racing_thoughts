@@ -1,7 +1,13 @@
-[gd_resource type="AudioBusLayout" load_steps=2 format=2]
+[gd_resource type="AudioBusLayout" load_steps=3 format=2]
 
 [sub_resource type="AudioEffectReverb" id=1]
 resource_name = "Reverb"
+
+[sub_resource type="AudioEffectCompressor" id=2]
+resource_name = "Compressor"
+threshold = -38.1
+ratio = 28.6
+sidechain = "Stingers"
 
 [resource]
 bus/1/name = "Music"
@@ -12,3 +18,11 @@ bus/1/volume_db = -12.9785
 bus/1/send = "Master"
 bus/1/effect/0/effect = SubResource( 1 )
 bus/1/effect/0/enabled = true
+bus/1/effect/1/effect = SubResource( 2 )
+bus/1/effect/1/enabled = true
+bus/2/name = "Stingers"
+bus/2/solo = false
+bus/2/mute = false
+bus/2/bypass_fx = false
+bus/2/volume_db = -3.11736
+bus/2/send = "Master"
