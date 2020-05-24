@@ -31,7 +31,7 @@ public class EndWorldMenu : CanvasLayer
 	}
 	public void SetTimeScore(float timeSeconds)
 	{
-		_youTimeLabel.Text = TimeSpan.FromSeconds(timeSeconds).ToString(@"ss\.FF");
+		_youTimeLabel.Text = timeSeconds.ToString("0.00");
 		_parTimeLabel.Text = "";
 	}
 

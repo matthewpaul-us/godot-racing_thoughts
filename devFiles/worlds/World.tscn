@@ -226,7 +226,7 @@ shape = SubResource( 9 )
 
 [node name="Infection" parent="." instance=ExtResource( 9 )]
 MinInfectionTickSeconds = 0.025
-MaxInfectionTickSeconds = 0.5
+MaxInfectionTickSeconds = 0.027
 InfectedThoughts = [ "burn", "diagnoses", "dizzy", "fist-raised", "grimace", "head-side-virus", "lungs-virus", "tired", "virus" ]
 
 [node name="LevelStartCutscene" parent="." instance=ExtResource( 10 )]
