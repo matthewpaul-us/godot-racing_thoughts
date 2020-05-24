@@ -1,6 +1,20 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://LoadLevelMenu.cs" type="Script" id=1]
+[ext_resource path="res://fonts/JosefinSans-SemiBoldItalic.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://fonts/DMSans-MediumItalic.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 24
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 18
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 30
+font_data = ExtResource( 2 )
 
 [node name="LoadLevelMenu" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -41,13 +55,30 @@ __meta__ = {
 [node name="TextEdit" type="TextEdit" parent="Panel/MarginContainer/VBoxContainer"]
 margin_right = 328.0
 margin_bottom = 85.0
+size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_fonts/font = SubResource( 1 )
 text = "Here is a text box"
+wrap_enabled = true
 
-[node name="LoadLevelButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
 margin_top = 89.0
 margin_right = 328.0
 margin_bottom = 139.0
+
+[node name="MainMenuButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_right = 68.0
+margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
+custom_fonts/font = SubResource( 3 )
+text = "Return"
+
+[node name="LoadLevelButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 72.0
+margin_right = 328.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 2 )
 text = "Enter the Dream"
-[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/LoadLevelButton" to="." method="OnLoadLevelButtonPressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/HBoxContainer/LoadLevelButton" to="." method="OnLoadLevelButtonPressed"]
