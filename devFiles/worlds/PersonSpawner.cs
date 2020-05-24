@@ -30,27 +30,42 @@ public class PersonSpawner : Node
 		for (int i = 0; i < NumberToSpawn; i++)
 		{
 			var position = GetRandomPosition();
-			var newPerson = PersonInstance.Instance() as Person;
-
-			newPerson.Position = position;
-
-			var texture = _rand.Random(PersonTextures);
-
-			SortLayer.AddChild(newPerson);
-
-			var normalColor = Randomize(PersonColor, ColorVariation);
-			var shiningColor = Randomize(PersonShineColor, ColorVariation);
-			var infectedColor = Randomize(PersonInfectedColor, ColorVariation);
-
-			newPerson.SetColor(normalColor);
-
-			newPerson.NormalColor = normalColor;
-			newPerson.ShiningColor = shiningColor;
-			newPerson.InfectedColor = infectedColor;
-			newPerson.SelectedColor = PersonSelectedColor;
-
-			newPerson.SetTexture(texture);
+			SpawnAt(position);
 		}
+	}
+
+	public Person SpawnAt(Vector2 position, bool isJoseph = false)
+	{
+		var newPerson = PersonInstance.Instance() as Person;
+
+		newPerson.Position = position;
+
+		Texture texture;
+		if (isJoseph)
+		{
+			texture = PersonTextures.First();
+		}
+		else
+		{
+            texture = _rand.Random(PersonTextures);
+		}
+
+		SortLayer.AddChild(newPerson);
+
+		var normalColor = Randomize(PersonColor, ColorVariation);
+		var shiningColor = Randomize(PersonShineColor, ColorVariation);
+		var infectedColor = Randomize(PersonInfectedColor, ColorVariation);
+
+		newPerson.SetColor(normalColor);
+
+		newPerson.NormalColor = normalColor;
+		newPerson.ShiningColor = shiningColor;
+		newPerson.InfectedColor = infectedColor;
+		newPerson.SelectedColor = PersonSelectedColor;
+
+		newPerson.SetTexture(texture);
+
+		return newPerson;
 	}
 
 	private Color Randomize(Color color, float variation)

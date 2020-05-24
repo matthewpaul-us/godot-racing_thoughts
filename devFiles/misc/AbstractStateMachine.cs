@@ -6,7 +6,7 @@ using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
 
-public abstract class AbstractStateMachine<T>: Node where T : class
+public abstract class AbstractStateMachine<T>: Node where T : Node
 {
     [Signal] delegate void StateChanged(string state);
 
@@ -44,6 +44,8 @@ public abstract class AbstractStateMachine<T>: Node where T : class
 
     public void SetState(string newState)
     {
+        GD.Print($"{_parent.Name}: Set {newState}");
+
         if(!_states.Contains(newState))
         {
             GD.PrintErr($"State machine doesn't contain state {newState}");

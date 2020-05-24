@@ -6,7 +6,7 @@ using System.Linq;
 
 public class World : Node2D
 {
-	private Random _rand;
+	private AugmentedRandom _rand;
 
 	private Person _firstPerson;
 	private Person focusPerson;
@@ -49,34 +49,25 @@ public class World : Node2D
 
 		_infection.HealthyPeople.AddRange(_people);
 
-		Person minXPerson = null, maxXPerson = null;
 		foreach (var person in _people)
 		{
 			person.Connect(nameof(Person.ThoughtClicked), this, nameof(OnPersonThoughtClicked));
 
-			// Find the left most person
-			if(minXPerson == null || person.Position.x < minXPerson.Position.x)
-			{
-				minXPerson = person;
-			}
-
-			// Find the right most person
-			if(maxXPerson == null || person.Position.x > maxXPerson.Position.x)
-			{
-				maxXPerson = person;
-			}
-
 			person.Connect(nameof(Person.Infected), this, nameof(OnInfectionInfected));
 		}
 
+		var randomSpawn = _rand.Random(GetTree().GetNodesInGroup("starting_spawn").Cast<Node2D>().ToList());
+		var joseph = _spawner.SpawnAt(randomSpawn.Position, true);
+		var furthestPerson = _people.OrderByDescending(p => joseph.Position.DistanceSquaredTo(p.Position)).First();
+
 		// Have to defer to give the FSM a chance to catch up on first execution
-		CallDeferred(nameof(SetFocusPerson), minXPerson);
-		CallDeferred(nameof(SetTargetPerson), maxXPerson);
+		//CallDeferred(nameof(SetFocusPerson), joseph);
+		//CallDeferred(nameof(SetTargetPerson), furthestPerson);
 
-		_firstPerson = minXPerson;
+		_firstPerson = joseph;
 
-		SetFocusPerson(minXPerson);
-		SetTargetPerson(maxXPerson);
+		SetFocusPerson(joseph);
+		SetTargetPerson(furthestPerson);
 
 		PlayStartCutscene();
 	}
@@ -109,9 +100,11 @@ public class World : Node2D
 		// He doesn't have the same thought
 		if(!focusPerson.HasThought(part))
 		{
+			part.Shake();
 			return;
 		}
 
+		part.Roll();
 		SetFocusPerson(person);
 		person.PlayWhoosh();
 		person.SetShine(true);

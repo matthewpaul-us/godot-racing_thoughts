@@ -70,6 +70,7 @@
     <Compile Include="targetCamera\TargetCamera.cs" />
     <Compile Include="thought\Thought.cs" />
     <Compile Include="thought\thought_parts\ThoughtPart.cs" />
+    <Compile Include="tutorial\Tutorial.cs" />
     <Compile Include="worlds\EndWorldMenu.cs" />
     <Compile Include="worlds\FailMenu.cs" />
     <Compile Include="worlds\PersonSpawner.cs" />

@@ -81,11 +81,6 @@ public class Thought : Node2D
 			_timer.WaitTime = durationSeconds;
 			_timer.Start();
 
-			if(!IsFrozen)
-			{
-				//Randomize();
-			}
-
 			Show();
 			_anim.Play("show");
 		}
@@ -122,5 +117,19 @@ public class Thought : Node2D
 	internal void ShowThought(float durationSeconds)
 	{
 		SetThoughtVisible(true, durationSeconds);
+	}
+
+	internal void ForceThoughtParts(params string[] thoughtParts)
+	{
+		var index = 0;
+		foreach (var part in parts)
+		{
+			if(index >= thoughtParts.Count())
+			{
+				part.Randomize();
+			}
+
+			part.SetFontSymbol(thoughtParts[index++]);
+		}
 	}
 }

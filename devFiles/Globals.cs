@@ -3,6 +3,7 @@ using System;
 
 public class Globals : Node
 {
+    public static bool HasPlayedTutorial = false;
     public static LevelLoader LevelLoader { get; private set; }
     public override void _Ready()
     {

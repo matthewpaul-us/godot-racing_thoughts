@@ -12,10 +12,22 @@ public class MainMenu : CanvasLayer
 
 	public void OnPlayButtonPressed()
 	{
-		_loader.LoadLevel("res://worlds/World.tscn");
+		if(Globals.HasPlayedTutorial)
+		{
+			_loader.LoadLevel("res://worlds/World.tscn");
+		}
+		else
+		{
+			_loader.LoadLevel("res://tutorial/Tutorial.tscn", "The Beginning");
+		}
 	}
 	public void OnLevelButtonPressed()
 	{
 		_loader.LoadMenu("res://LoadLevelMenu.tscn");
+	}
+
+	public void OnCreditsButtonPressed()
+	{
+		_loader.LoadLevel("res://tutorial/Tutorial.tscn", "The Beginning");
 	}
 }

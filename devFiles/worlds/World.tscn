@@ -258,6 +258,28 @@ bus = "Music"
 wait_time = 4.0
 
 [node name="Tween" type="Tween" parent="MusicMan"]
+
+[node name="StartingSpawn" type="Node" parent="."]
+
+[node name="Spawn" type="Node2D" parent="StartingSpawn" groups=[
+"starting_spawn",
+]]
+position = Vector2( 233.825, 177.566 )
+
+[node name="Spawn2" type="Node2D" parent="StartingSpawn" groups=[
+"starting_spawn",
+]]
+position = Vector2( 183.859, 2179.93 )
+
+[node name="Spawn3" type="Node2D" parent="StartingSpawn" groups=[
+"starting_spawn",
+]]
+position = Vector2( 3902.27, 2199.46 )
+
+[node name="Spawn4" type="Node2D" parent="StartingSpawn" groups=[
+"starting_spawn",
+]]
+position = Vector2( 3885.53, 204.961 )
 [connection signal="TimeRanOut" from="WorldGUI" to="." method="OnWorldGuiTimeRanOut"]
 [connection signal="CutsceneFinished" from="LevelStartCutscene" to="." method="OnLevelStartCutsceneCutsceneFinished"]
 [connection signal="timeout" from="MusicMan/Timer" to="MusicMan" method="OnTimerTimeout"]

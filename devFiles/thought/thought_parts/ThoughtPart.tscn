@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://addons/FontAwesome5/FontAwesome.gd" type="Script" id=1]
 [ext_resource path="res://thought/thought_parts/ThoughtPart.cs" type="Script" id=2]
@@ -7,6 +7,52 @@
 [sub_resource type="DynamicFont" id=1]
 size = 425
 font_data = ExtResource( 3 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "roll"
+length = 0.75
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("FontAwesome:rect_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.25, 0.37, 0.75 ),
+"transitions": PoolRealArray( 0.5, -2, 1 ),
+"update": 0,
+"values": [ 0.0, -17.3022, 360.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("FontAwesome:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.03, 0.25 ),
+"transitions": PoolRealArray( 1, 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.5, 1.5 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "shake"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("FontAwesome:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.0192719, 0.0651537, 0.118374 ),
+"transitions": PoolRealArray( -0.5, -0.5, -0.5, -0.5 ),
+"update": 0,
+"values": [ Vector2( -245, -232.711 ), Vector2( -311.595, -232.711 ), Vector2( -133.355, -232.711 ), Vector2( -245, -232.711 ) ]
+}
 
 [node name="ThoughtPart" type="Node2D"]
 scale = Vector2( 0.0765261, 0.0765261 )
@@ -25,6 +71,8 @@ margin_left = -245.0
 margin_top = -232.711
 margin_right = 247.0
 margin_bottom = 218.289
+rect_rotation = 360.0
+rect_pivot_offset = Vector2( 245, 232.711 )
 custom_fonts/font = SubResource( 1 )
 text = ""
 align = 1
@@ -38,12 +86,18 @@ icon_type = "solid"
 icon_name = "clock"
 
 [node name="TextureButton" type="TextureButton" parent="."]
-margin_left = -239.809
-margin_top = -250.467
-margin_right = 240.191
-margin_bottom = 229.533
+margin_left = -312.0
+margin_top = -288.0
+margin_right = 148.0
+margin_bottom = 119.0
+rect_scale = Vector2( 1.39944, 1.46077 )
+action_mode = 0
 expand = true
 stretch_mode = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/roll = SubResource( 3 )
+anims/shake = SubResource( 2 )

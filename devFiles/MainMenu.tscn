@@ -51,7 +51,7 @@ margin_top = 45.0
 margin_right = 898.0
 margin_bottom = 92.0
 custom_fonts/font = ExtResource( 4 )
-text = "Credits"
+text = "Tutorial"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -80,3 +80,4 @@ __meta__ = {
 }
 [connection signal="pressed" from="Background/PlayButton" to="." method="OnPlayButtonPressed"]
 [connection signal="pressed" from="Background/LevelButton" to="." method="OnLevelButtonPressed"]
+[connection signal="pressed" from="Background/CreditsButton" to="." method="OnCreditsButtonPressed"]

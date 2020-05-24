@@ -20,6 +20,7 @@ public class ThoughtPart : Node2D
 	private AugmentedRandom _rand = RandomSingleton.GetInstance();
 	private TextureButton _button;
 	private Node _fontSymbol;
+	private AnimationPlayer _anim;
 
 	public override void _Ready()
 	{
@@ -27,6 +28,7 @@ public class ThoughtPart : Node2D
 		_button = GetNode<TextureButton>("TextureButton");
 		_button.Connect("button_down", this, nameof(OnThoughtPartClicked));
 		_fontSymbol = GetNode("FontAwesome");
+		_anim = GetNode<AnimationPlayer>("AnimationPlayer");
 
 		Randomize();
 	}
@@ -45,9 +47,20 @@ public class ThoughtPart : Node2D
 		EmitSignal(nameof(Clicked), this);
 	}
 
-	private void SetFontSymbol(string symbolName)
+	public void SetFontSymbol(string symbolName)
 	{
 		_fontSymbol.Set("icon_name", symbolName);
+		Part = symbolName;
+	}
+
+	public void Shake()
+	{
+		_anim.Play("shake");
+	}
+
+	public void Roll()
+	{
+		_anim.Play("roll");
 	}
 
 }

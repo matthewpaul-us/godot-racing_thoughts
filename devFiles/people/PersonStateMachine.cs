@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 public class PersonStateMachine : AbstractStateMachine<Person>
 {
+	public string InitialState;
+
 	protected float _timeLeftToWait = 0;
 	private AugmentedRandom _rand;
 	private Vector2 _direction = Vector2.Zero;
@@ -23,12 +25,20 @@ public class PersonStateMachine : AbstractStateMachine<Person>
 		AddState("walk");
 		AddState("picked");
 		AddState("get_infected");
+		AddState("frozen");
 
-		CallDeferred("SetState", "wait");
+		InitialState = "wait";
+		CallDeferred(nameof(SetInitialState));
 
 		// Set this to sleep until we enter the screen
 		SetPhysicsProcess(false);
 	}
+
+	private void SetInitialState()
+	{
+		SetState(InitialState);
+	}
+
 	protected override void EnterState(string newState, string oldState)
 	{
 		switch (newState)
@@ -52,6 +62,9 @@ public class PersonStateMachine : AbstractStateMachine<Person>
 				break;
 			case "get_infected":
 				_parent.PlayAnimation("infect");
+				break;
+			case "frozen":
+				_parent.PlayAnimation(null);
 				break;
 			default:
 				break;

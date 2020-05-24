@@ -2,6 +2,7 @@ using Godot;
 using RacingThoughts.misc;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 public class Person : KinematicBody2D
 {
@@ -17,7 +18,7 @@ public class Person : KinematicBody2D
 	public Thought Thought;
 	public Vector2 Velocity = Vector2.Zero;
 	private AnimationPlayer _anim;
-	private PersonStateMachine _brain;
+	public PersonStateMachine Brain;
 	private bool _hasFocus;
 	private bool _isTarget;
 	private Random _rand;
@@ -26,6 +27,8 @@ public class Person : KinematicBody2D
 	private Tween _tween;
 	private AudioStreamPlayer2D _whoosh;
 	[Signal] public delegate void ThoughtClicked(Person person, ThoughtPart part);
+
+	private bool _hasBeenForced = false; 
 
 	internal Texture GetTexture()
 	{
@@ -49,9 +52,9 @@ public class Person : KinematicBody2D
 	{
 		InfectedThoughts = parts;
 		// Have to ensure infected can happen off-screen
-		if(_brain.IsPhysicsProcessing())
+		if(Brain.IsPhysicsProcessing())
 		{
-			_brain.SetState("get_infected");
+			Brain.SetState("get_infected");
 		}
 		else
 		{
@@ -76,7 +79,7 @@ public class Person : KinematicBody2D
 		_timer = GetNode<Timer>("Timer");
 		_sprite = GetNode<Sprite>("Sprite");
 		_anim = GetNode<AnimationPlayer>("AnimationPlayer");
-		_brain = GetNode<PersonStateMachine>("Brain");
+		Brain = GetNode<PersonStateMachine>("Brain");
 		_tween = GetNode<Tween>("Tween");
 		_whoosh = GetNode<AudioStreamPlayer2D>("WhooshSound");
 
@@ -105,7 +108,10 @@ public class Person : KinematicBody2D
 
 	public void OnTimerTimeout()
 	{
-		Thought.Randomize();
+		if (!_hasBeenForced)
+		{
+            Thought.Randomize();
+		}
 	}
 
 	public void PlayAnimation(string animationName)
@@ -127,13 +133,13 @@ public class Person : KinematicBody2D
 		{
 			Thought.SetFreeze(true);
 			Thought.ZIndex += 10;
-			_brain.SetState("picked");
+			Brain.SetState("picked");
 		}
 		else
 		{
 			Thought.SetFreeze(false);
 			Thought.ZIndex -= 10;
-			_brain.SetState("wait");
+			Brain.SetState("wait");
 		}
 
 		_hasFocus = isFocused;
@@ -199,17 +205,23 @@ public class Person : KinematicBody2D
 	}
 	private void OnVisibilityEnabler2DScreenEntered()
 	{
-		_brain.SetPhysicsProcess(true);
+		Brain.SetPhysicsProcess(true);
 	}
 
 
 	private void OnVisibilityEnabler2DScreenExited()
 	{
-		_brain.SetPhysicsProcess(false);
+		Brain.SetPhysicsProcess(false);
 	}
 
 	public bool IsPlayingAnimation()
 	{
 		return _anim.IsPlaying();
+	}
+
+	public void ForceThoughtParts(string part1 = null, string part2 = null, string part3 = null)
+	{
+		_hasBeenForced = true;
+		Thought.ForceThoughtParts(part1, part2, part3);
 	}
 }
