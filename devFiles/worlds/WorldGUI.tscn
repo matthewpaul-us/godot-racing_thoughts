@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://fonts/JosefinSans-Light.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://worlds/time_progress_over.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://worlds/time_progress_fill.png" type="Texture" id=4]
 [ext_resource path="res://worlds/EndWorldMenu.tscn" type="PackedScene" id=5]
 [ext_resource path="res://worlds/FailMenu.tscn" type="PackedScene" id=6]
+[ext_resource path="res://worlds/heartbeat.wav" type="AudioStream" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 26
@@ -20,6 +21,7 @@ extents = Vector2( 95.0858, 75.6821 )
 resource_name = "pulse"
 length = 2.0
 loop = true
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("TimeLeftControl/TimeLeftLabel:modulate")
 tracks/0/interp = 1
@@ -28,9 +30,35 @@ tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 1, 2 ),
-"transitions": PoolRealArray( 2, 0.5, 1 ),
+"transitions": PoolRealArray( 0.5, 1, 0.5 ),
 "update": 0,
-"values": [ Color( 0.815686, 0, 0, 1 ), Color( 0.815686, 0, 0, 0 ), Color( 0.815686, 0, 0, 1 ) ]
+"values": [ Color( 0.815686, 0, 0, 0 ), Color( 0.815686, 0, 0, 1 ), Color( 0.815686, 0, 0, 0 ) ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("TimeLeftControl/AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 7 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("TimeLeftControl/TimeLeftLabel:rect_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.95, 1, 1.2 ),
+"transitions": PoolRealArray( 0.5, -0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.25, 1.25 ), Vector2( 1, 1 ) ]
 }
 
 [node name="WorldGUI" type="CanvasLayer"]
@@ -73,6 +101,7 @@ margin_left = 19.2037
 margin_top = 45.1722
 margin_right = 104.204
 margin_bottom = 79.1722
+rect_pivot_offset = Vector2( 42, 17 )
 custom_fonts/font = SubResource( 1 )
 text = "Time"
 align = 1
@@ -86,6 +115,10 @@ position = Vector2( 61.9475, 61.9475 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TimeLeftControl/Area2D"]
 shape = SubResource( 2 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="TimeLeftControl"]
+stream = ExtResource( 7 )
+bus = "Music"
 
 [node name="EndWorldMenu" parent="." instance=ExtResource( 5 )]
 
