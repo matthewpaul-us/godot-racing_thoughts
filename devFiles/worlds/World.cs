@@ -40,6 +40,9 @@ public class World : Node2D
 
 		_spawner.Spawn();
 
+		var randomSpawn = _rand.Random(GetTree().GetNodesInGroup("starting_spawn").Cast<Node2D>().ToList());
+		var joseph = _spawner.SpawnAt(randomSpawn.Position, true);
+
 		_people = _sort.GetChildren()
 			.Cast<Node>()
 			.Where(c => c is Person)
@@ -56,8 +59,6 @@ public class World : Node2D
 			person.Connect(nameof(Person.Infected), this, nameof(OnInfectionInfected));
 		}
 
-		var randomSpawn = _rand.Random(GetTree().GetNodesInGroup("starting_spawn").Cast<Node2D>().ToList());
-		var joseph = _spawner.SpawnAt(randomSpawn.Position, true);
 		var furthestPerson = _people.OrderByDescending(p => joseph.Position.DistanceSquaredTo(p.Position)).First();
 
 		_firstPerson = joseph;
