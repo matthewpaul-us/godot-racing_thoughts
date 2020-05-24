@@ -87,6 +87,7 @@ public class WorldGUI : CanvasLayer
 	public void StopTimer()
 	{
 		isTimerRunning = false;
+		_anim.Stop();
 	}
 
 	public void ShowEndWorldMenu(string seed, int connections)
