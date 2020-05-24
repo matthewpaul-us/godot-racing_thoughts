@@ -92,6 +92,7 @@ public class WorldGUI : CanvasLayer
 	public void ShowEndWorldMenu(string seed, int connections)
 	{
 		_endMenu.SetSeed(seed);
+		GD.Print($"{_totalTimeAvailable} - {_timeLeft} = {_totalTimeAvailable - _timeLeft}");
 		_endMenu.SetTimeScore(_totalTimeAvailable - _timeLeft);
 		_endMenu.SetConnectionScore(connections);
 

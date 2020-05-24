@@ -71,7 +71,7 @@ public class Infection : Node
 
 		if (!peopleToInfect.Any())
 		{
-			GD.Print("Couldn't find anyone to infect!");
+			SetPhysicsProcess(false);
 			return;
 		}
 

@@ -27,6 +27,7 @@ public class Person : KinematicBody2D
 	private Timer _timer;
 	private Tween _tween;
 	private AudioStreamPlayer2D _whoosh;
+	private VisibilityEnabler2D _visibility;
 	[Signal] public delegate void ThoughtClicked(Person person, ThoughtPart part);
 
 	private bool _hasBeenForced = false;
@@ -83,12 +84,27 @@ public class Person : KinematicBody2D
 		Brain = GetNode<PersonStateMachine>("Brain");
 		_tween = GetNode<Tween>("Tween");
 		_whoosh = GetNode<AudioStreamPlayer2D>("WhooshSound");
+		_visibility = GetNode<VisibilityEnabler2D>("VisibilityEnabler2D");
+
+		PauseVisibility();
 
 		_timer.Connect("timeout", this, nameof(OnTimerTimeout));
 		_timer.WaitTime = (float)(_rand.NextDouble() * 2.0 + 2.0);
 		_timer.Start();
 
 		Thought.Randomize();
+	}
+
+	public void PauseVisibility()
+	{
+		if(_visibility.GetParent() != null)
+			RemoveChild(_visibility);
+	}
+
+	public void UnpauseVisibility()
+	{
+		if(_visibility.GetParent() == null)
+			AddChild(_visibility);
 	}
 
 	public bool HasThought(ThoughtPart part)
@@ -103,7 +119,6 @@ public class Person : KinematicBody2D
 
 	public void OnThoughtPartClicked(ThoughtPart part)
 	{
-		GD.Print($"My {part.Part} thought was clicked!");
 		EmitSignal(nameof(ThoughtClicked), this, part);
 	}
 

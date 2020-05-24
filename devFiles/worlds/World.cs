@@ -94,7 +94,6 @@ public class World : Node2D
 			return;
 		}
 
-		GD.Print($"{person.Name}'s {part.Part} was clicked!");
 		// He doesn't have the same thought
 		if(!focusPerson.HasThought(part))
 		{
@@ -178,6 +177,11 @@ public class World : Node2D
 		_camera.Current = true;
 		focusPerson.ShowThought();
 		_gui.StartTimer(30);
+
+		foreach (var person in _people)
+		{
+			person.UnpauseVisibility();
+		}
 	}
 }
 

@@ -43,7 +43,6 @@ public class ThoughtPart : Node2D
 
 	public void OnThoughtPartClicked()
 	{
-		GD.Print($"{Part} clicked!");
 		EmitSignal(nameof(Clicked), this);
 	}
 

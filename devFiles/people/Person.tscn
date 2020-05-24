@@ -111,6 +111,8 @@ anims/walk = SubResource( 3 )
 [node name="Tween" type="Tween" parent="."]
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+position = Vector2( 0.112975, 1.58155 )
+rect = Rect2( -25, -70, 47, 140 )
 physics_process_parent = true
 
 [node name="WhooshSound" type="AudioStreamPlayer2D" parent="."]

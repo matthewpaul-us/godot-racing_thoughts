@@ -140,7 +140,6 @@ public class Tutorial : Node2D
 			return;
 		}
 
-		GD.Print($"{person.Name}'s {part.Part} was clicked!");
 		// He doesn't have the same thought
 		if(!focusPerson.HasThought(part))
 		{

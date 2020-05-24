@@ -187,7 +187,6 @@ class MusicMan : Node
 
 	public void PlaySuccess()
 	{
-		GD.Print("Playing Success");
 		MusicKey currentKey = GetCurrentKey();
 
 		if(!currentKey.SuccessFragments.Any())
@@ -201,15 +200,11 @@ class MusicMan : Node
 
 	public void PlayFailure()
 	{
-		GD.Print("Playing Failure");
 		MusicKey currentKey = GetCurrentKey();
-
-		GD.Print($"Failures : {currentKey.FailureFragments.Count()}");
 
 		if(!currentKey.FailureFragments.Any())
 		{
 			var keysWithFragment = Keys.Where(k => k.FailureFragments.Any()).ToList();
-			GD.Print($"Keys with Failures : {keysWithFragment.Count()}");
 			currentKey = _rand.Random(keysWithFragment);
 		}
 

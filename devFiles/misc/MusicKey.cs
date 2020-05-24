@@ -53,17 +53,14 @@ public class MusicKey
         if (index < 3)
         {
             selectedAudio = _rand.Random(LongFragments);
-            GD.Print($"{Key} long");
         }
         else if (index < 5)
         {
             selectedAudio = _rand.Random(UpDownFragments);
-            GD.Print($"{Key} up down");
         }
         else
         {
             selectedAudio = _rand.Random(InterestFragments);
-            GD.Print($"{Key} interest");
         }
 
         return selectedAudio;
