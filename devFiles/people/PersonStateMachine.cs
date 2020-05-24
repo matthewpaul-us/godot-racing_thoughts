@@ -58,6 +58,7 @@ public class PersonStateMachine : AbstractStateMachine<Person>
 				if (oldState != "get_infected")
 				{ 
                     _parent.PlayAnimation(null);
+					_parent.Velocity = Vector2.Zero;
 				}
 				break;
 			case "get_infected":

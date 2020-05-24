@@ -60,14 +60,12 @@ public class World : Node2D
 		var joseph = _spawner.SpawnAt(randomSpawn.Position, true);
 		var furthestPerson = _people.OrderByDescending(p => joseph.Position.DistanceSquaredTo(p.Position)).First();
 
-		// Have to defer to give the FSM a chance to catch up on first execution
-		//CallDeferred(nameof(SetFocusPerson), joseph);
-		//CallDeferred(nameof(SetTargetPerson), furthestPerson);
-
 		_firstPerson = joseph;
 
 		SetFocusPerson(joseph);
 		SetTargetPerson(furthestPerson);
+
+		joseph.Brain.InitialState = "picked";
 
 		PlayStartCutscene();
 	}

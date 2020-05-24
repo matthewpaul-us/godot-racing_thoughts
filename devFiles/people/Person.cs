@@ -7,6 +7,7 @@ using System.Security.Cryptography.X509Certificates;
 public class Person : KinematicBody2D
 {
 	[Signal] public delegate void Infected(Person person);
+	[Signal] public delegate void Hovered(Person person);
 
 	public Sprite FocusIcon;
 
@@ -28,7 +29,7 @@ public class Person : KinematicBody2D
 	private AudioStreamPlayer2D _whoosh;
 	[Signal] public delegate void ThoughtClicked(Person person, ThoughtPart part);
 
-	private bool _hasBeenForced = false; 
+	private bool _hasBeenForced = false;
 
 	internal Texture GetTexture()
 	{
@@ -110,7 +111,7 @@ public class Person : KinematicBody2D
 	{
 		if (!_hasBeenForced)
 		{
-            Thought.Randomize();
+			Thought.Randomize();
 		}
 	}
 
@@ -188,6 +189,7 @@ public class Person : KinematicBody2D
 
 	private void OnPersonMouseEntered()
 	{
+		EmitSignal(nameof(Hovered), this);
 		if (!Thought.IsThoughtVisible)
 		{
 			ShowThought();

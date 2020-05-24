@@ -30,6 +30,8 @@ public class Tutorial : Node2D
 	private Person _tut1Person;
 	private Person _tut2Person;
 	private Person _middlePerson;
+	private Label _hoverMessage;
+	private Label _clickMessage;
 
 	public override void _Ready()
 	{
@@ -45,6 +47,8 @@ public class Tutorial : Node2D
 		_message1Anim = GetNode<AnimationPlayer>("TutorialMessage/AnimationPlayer");
 		_message2Anim = GetNode<AnimationPlayer>("TutorialMessage2/AnimationPlayer");
 		_message3Anim = GetNode<AnimationPlayer>("TutorialMessage3/AnimationPlayer");
+		_hoverMessage = GetNode<Label>("HoverMessage");
+		_clickMessage = GetNode<Label>("ClickMessage");
 
 		_rand = RandomSingleton.GetInstance();
 		_people = new List<Person>();
@@ -67,6 +71,8 @@ public class Tutorial : Node2D
 		_people.Add(_middlePerson);
 		_people.Add(_tut2Person);
 
+		//_tut1Person.Connect(nameof(Person.Hovered), this, nameof(OnPersonHovered));
+
 		SetFocusPerson(joseph);
 		SetTargetPerson(furthestPerson);
 
@@ -88,6 +94,12 @@ public class Tutorial : Node2D
 
 
 		_message1Anim.Play("swoop_in");
+		_hoverMessage.GetNode<AnimationPlayer>("AnimationPlayer").Play("flash");
+	}
+
+	public void OnPersonHovered()
+	{
+		_hoverMessage.Hide();
 	}
 
 	public void PlayMessage(AnimationPlayer player)
@@ -141,9 +153,13 @@ public class Tutorial : Node2D
 		person.PlayWhoosh();
 		person.SetShine(true);
 
+		_targetCam.Show();
+
 		if(person == _tut1Person)
 		{
 			PlayMessage(_message2Anim);
+			_clickMessage.Hide();
+			_hoverMessage.Hide();
 		}
 
 		if(person == _tut2Person)
