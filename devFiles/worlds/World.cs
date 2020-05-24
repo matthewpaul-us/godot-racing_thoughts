@@ -114,6 +114,8 @@ public class World : Node2D
 		if(person == targetPerson)
 		{
 			PlayWin();
+			// Make sure they can't lose after winning
+			person.PlayAnimation(null);
 		}
 	}
 
